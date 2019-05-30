@@ -1,0 +1,31 @@
+allprojects {
+    repositories {
+        jcenter() 
+    }
+}
+	
+subprojects {
+	group = 'com.github.spring-esdata-loader'
+	version = '0.0.1-SNAPSHOT'
+}
+
+project(':spring-esdata-loader-junit4') {
+    apply plugin: 'java-library'
+    dependencies {
+        api project(':spring-esdata-loader-core')
+    }
+}
+
+project(':spring-esdata-loader-junit5') {
+    apply plugin: 'java-library'
+    dependencies {
+        api project(':spring-esdata-loader-core')
+    }
+}
+
+project(':spring-esdata-loader-demo') {
+    apply plugin: 'java'
+    dependencies {
+        implementation project(':spring-esdata-loader-junit4'), project(':spring-esdata-loader-junit5')
+    }
+}

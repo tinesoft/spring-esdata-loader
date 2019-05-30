@@ -1,0 +1,8 @@
+
+plugins {
+    id 'java-library'
+}
+
+dependencies {
+    api 'junit:junit:4.12'
+}

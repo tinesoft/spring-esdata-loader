@@ -1,0 +1,37 @@
+plugins {
+	id 'org.springframework.boot' version '2.1.6.RELEASE'
+	id 'java'
+}
+
+apply plugin: 'io.spring.dependency-management'
+
+ext["junit-jupiter.version"] = "5.5.0"
+
+dependencies {
+
+	implementation 'org.springframework.boot:spring-boot-starter-data-elasticsearch'
+	
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+	testImplementation 'org.testcontainers:elasticsearch:1.11.3'
+	testImplementation 'org.testcontainers:junit-jupiter:1.11.3'
+
+	// JUnit Jupiter API and TestEngine implementation
+	testImplementation("org.junit.jupiter:junit-jupiter")
+
+	testRuntimeOnly("org.junit.vintage:junit-vintage-engine") {
+		because 'allows JUnit 3 and JUnit 4 tests to run'
+	}
+
+	testRuntimeOnly("org.junit.platform:junit-platform-launcher") {
+		because 'allows tests to run from IDEs that bundle older version of launcher'
+	}
+}
+
+test {
+	useJUnitPlatform ()
+
+	testLogging {
+		events 'PASSED', 'FAILED', 'SKIPPED'
+	}
+}
