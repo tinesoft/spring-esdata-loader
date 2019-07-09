@@ -16,6 +16,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.zip.GZIPInputStream;
 
+/**
+ * Loader that use Spring Data's {@link ElasticsearchTemplate} to load data into Elasticsearch.
+ */
 public class SpringEsDataLoader {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(SpringEsDataLoader.class);
@@ -32,7 +35,11 @@ public class SpringEsDataLoader {
 		this.esTemplate = esTemplate;
 	}
 
-	public <T> void load(final IndexData<T> d) {
+    /**
+     * Loads given data into ElasticSearch. Target indices are dropped and recreated before data are inserted in bulk.
+     *
+     */
+	public void load(final IndexData d) {
 
 		// first recreate the index
 		LOGGER.info("Recreating Index for '{}'...", d.getEsEntityClass().getSimpleName());
@@ -67,16 +74,18 @@ public class SpringEsDataLoader {
 	}
 
 	/**
-	 * Builds an {@link IndexQuery} based on the provided JSON (a line extracted using 'elasticdump' tool for example) <br>
-	 * Data can be extracted using:<br>
-	 * <br>
+	 * Builds an {@link IndexQuery} based on the provided JSON line, representing the data to be inserted into ES.
+	 * <p>Data can be extracted using a tool like <code>elasticdump</code> (requires NodeJS):</p>
+	 * <p>
 	 * <code>$ npx elasticdump --type=data --input=http://localhost:9200/my_index --output=data.json</code>
 	 * or
 	 * <code>$ npx elasticdump --type=data --input=http://localhost:9200/my_index --output=$ | gzip > data.json.gz</code>
-	 * @param jsonLine
-	 * @param indexName
-	 * @param indexType
-	 * @return the {@link IndexQuery} built from the parsed json line
+     * </p>
+	 * @param jsonLine the data to be inserted, expressed as JSON
+	 * @param indexName the name of the target index (if <code>null</code>, will be retrieved from the JSON line)
+	 * @param indexType the type of the target index (if <code>null</code>, will be retrieved from the JSON line)
+	 * @return the {@link IndexQuery} built from the parsed JSON line
+     * @see <a href="https://www.npmjs.com/package/elasticdump">elasticdump</a> (requires NodeJS)
 	 */
 	private IndexQuery getIndexQuery(final String jsonLine, final String indexName, final String indexType) {
 

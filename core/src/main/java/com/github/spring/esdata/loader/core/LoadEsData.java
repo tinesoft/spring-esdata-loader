@@ -9,7 +9,7 @@ import java.lang.annotation.Target;
 /**
  * {@code @LoadEsData} is a {@linkplain Repeatable repeatable} annotation
  * that is used to define which Elasticsearch data to load into which index and how.
- * 
+ *
  * @author tinesoft
  *
  */
@@ -19,29 +19,29 @@ import java.lang.annotation.Target;
 public @interface LoadEsData {
 
 	/**
-	 * class of the ES data to be loaded
-	 * 
-	 * @return class of the ES data to be loaded
+	 * mapping class of the data to be loaded into Elasticsearch
+	 *
+	 * @return mapping class of the data to be loaded into Elasticsearch
 	 */
 	Class<?> esEntityClass();
 
 	/**
 	 * path to the file that contains the data
-	 * 
+	 *
 	 * @return path to the file that contains the data
 	 */
 	String location();
 
 	/**
 	 * maximum number of items to load
-	 * 
+	 *
 	 * @return maximum number of items to load
 	 */
 	long nbMaxItems() default Long.MAX_VALUE;
 
 	/**
 	 * number of items to skip
-	 * 
+	 *
 	 * @return number of items to skip
 	 */
 	long nbSkipItems() default 0;

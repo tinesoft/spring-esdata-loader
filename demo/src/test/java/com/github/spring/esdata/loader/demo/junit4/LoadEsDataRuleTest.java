@@ -22,20 +22,19 @@ import org.testcontainers.elasticsearch.ElasticsearchContainer;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Simple integration test to illustrate how to use the library when testing
- * with JUnit 4
- * 
+ * Simple integration test to illustrate how to use the library when testing with JUnit 4.
+ *
  * @author tinesoft
  *
  */
 @RunWith(SpringRunner.class) // required to run JUnit 4 tests with Spring magic support
 @SpringBootTest
-@ContextConfiguration(initializers = LoadEsDataRuleTest.ExposeDockerizedEsServer.class)
+
+
+@ContextConfiguration(initializers = LoadEsDataRuleTest.ExposeDockerizedElasticsearchServer.class)//for this test setup only, not required in general
 public class LoadEsDataRuleTest {
 
-	@ClassRule // helper to easily start a Elasticsearch server to run our tests against, using
-				// Docker (not required to use the library, you can target a proper test ES
-				// server)
+	@ClassRule // helper to easily start a dockerized Elasticsearch server to run our tests against (not required to use this library)
 	public final static ElasticsearchContainer ES_CONTAINER = new ElasticsearchContainer(DemoTestPropertyValues.ES_DOCKER_IMAGE_VERSION);
 
 	@Rule
@@ -61,8 +60,7 @@ public class LoadEsDataRuleTest {
 		assertThat(authors).hasSize(10);
 	}
 
-	static class ExposeDockerizedEsServer implements ApplicationContextInitializer<ConfigurableApplicationContext> {
-
+	static class ExposeDockerizedElasticsearchServer implements ApplicationContextInitializer<ConfigurableApplicationContext> {
 		@Override
 		public void initialize(ConfigurableApplicationContext cac) {
 			DemoTestPropertyValues.using(ES_CONTAINER).applyTo(cac.getEnvironment());

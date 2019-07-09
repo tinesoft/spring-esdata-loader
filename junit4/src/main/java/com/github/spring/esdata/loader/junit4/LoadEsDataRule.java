@@ -4,14 +4,13 @@ import com.github.spring.esdata.loader.core.IndexData;
 import com.github.spring.esdata.loader.core.LoadEsData;
 import com.github.spring.esdata.loader.core.LoadMultipleEsData;
 import com.github.spring.esdata.loader.core.SpringUtils;
-import org.junit.ClassRule;
 import org.junit.rules.MethodRule;
+import org.junit.rules.TestRule;
 import org.junit.runners.model.FrameworkMethod;
 import org.junit.runners.model.Statement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
-import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
 import org.springframework.test.context.TestContextManager;
 import org.springframework.util.Assert;
 
@@ -24,25 +23,16 @@ import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 /**
- * A JUnit {@link MethodRule} to load ES data only once (during first test run),
- * unless specified otherwise (using <code>@LoadEsData</code> on each individual
- * test).
- * 
-  * <br>
- * This is a workaround to have a <b>non-static</b> {@link ClassRule}
- * equivalent, because we need to access the tested class instance in order to
- * perform the data loading (using the {@link ElasticsearchTemplate} from with
- * its context)
- * 
- * @author tinesoft
+ * JUnit4 {@link TestRule} to load data into Elasticsearch either before all tests, or before each test.
  *
+ * @author tinesoft
  */
 public class LoadEsDataRule implements MethodRule {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(LoadEsDataRule.class);
 
-	private Consumer<IndexData<?>> loader;
-	private IndexData<?>[] initialData;
+	private Consumer<IndexData> loader;
+	private IndexData[] initialData;
 	private static AtomicBoolean firstLoad = new AtomicBoolean(true);// need to be static for class level
 
 	/**
@@ -56,7 +46,7 @@ public class LoadEsDataRule implements MethodRule {
 	 *            the data to be loaded before each test method (unless overwriten
 	 *            with a {@literal @}LoadEsData)
 	 */
-	public LoadEsDataRule(final IndexData<?>... data) {
+	public LoadEsDataRule(final IndexData... data) {
 		this(null, data);
 	}
 
@@ -67,7 +57,7 @@ public class LoadEsDataRule implements MethodRule {
 	 *            the data to be loaded before each test method (unless overwritten
 	 *            with a {@literal @}LoadEsData)
 	 */
-	public LoadEsDataRule(final Consumer<IndexData<?>> loader, final IndexData<?>... data) {
+	public LoadEsDataRule(final Consumer<IndexData> loader, final IndexData... data) {
 		this.loader = loader;
 		this.initialData = data;
 	}
@@ -167,13 +157,13 @@ public class LoadEsDataRule implements MethodRule {
 
 				if (shouldReloadEsData) { // load the specified es data
 					for (LoadEsData a : loadEsDataAnnotations) {
-						IndexData<?> d = IndexData.of((Class<?>) a.esEntityClass(), a.location(), a.nbMaxItems(),
+						IndexData d = IndexData.of((Class<?>) a.esEntityClass(), a.location(), a.nbMaxItems(),
 								a.nbSkipItems());
 						loader.accept(d);
 					}
 				} else { // reload the same initial data
 
-					for (IndexData<?> d : initialData)
+					for (IndexData d : initialData)
 						loader.accept(d);
 				}
 

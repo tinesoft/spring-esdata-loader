@@ -46,7 +46,7 @@ public final class SpringUtils {
      * Retrieve a {@link ElasticsearchTemplate} from the {@link ApplicationContext} and creates a data loader from it.
      * @return a {@link Consumer} that accepts one or more {@link IndexData} objects and inserts them in the underlying ES Server.
      */
-	public static Consumer<IndexData<?>> getDataLoader(final ApplicationContext appContext) {
+	public static Consumer<IndexData> getDataLoader(final ApplicationContext appContext) {
 
 		if (appContext == null) {
 			LOGGER.error(

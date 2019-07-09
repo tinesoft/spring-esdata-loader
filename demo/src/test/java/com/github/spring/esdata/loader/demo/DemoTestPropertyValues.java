@@ -3,6 +3,9 @@ package com.github.spring.esdata.loader.demo;
 import org.springframework.boot.test.util.TestPropertyValues;
 import org.testcontainers.elasticsearch.ElasticsearchContainer;
 
+/**
+ * Helper to expose the dockerized Elasticsearch server's <code>clusterNodes<code> host to Spring.
+ */
 public final class DemoTestPropertyValues {
 
     public static final String ES_DOCKER_IMAGE_VERSION = "docker.elastic.co/elasticsearch/elasticsearch:" +

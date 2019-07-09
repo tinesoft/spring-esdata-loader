@@ -23,8 +23,7 @@ import static org.junit.platform.commons.support.AnnotationSupport.findAnnotatio
 import static org.junit.platform.commons.support.AnnotationSupport.findRepeatableAnnotations;
 
 /**
- * A JUnit {@link Extension} to load ES data before all tests, or before each
- * test
+ * JUnit {@link Extension} to load data into Elasticsearch either before all tests, or before each test.
  *
  * @author tinesoft
  */
@@ -37,7 +36,7 @@ public class LoadEsDataExtension
     private final static String TEST_INSTANCE = "testInstance";
     private static final String LOADER = "loader";
 
-    private Consumer<IndexData<?>> loader;
+    private Consumer<IndexData> loader;
 
     // This constructor is invoked by JUnit Jupiter via reflection or ServiceLoader
     public LoadEsDataExtension() {
@@ -45,9 +44,10 @@ public class LoadEsDataExtension
     }
 
     /**
+     * Constructor
      * @param loader the code that will actually load the data into Elasticsearch
      */
-    public LoadEsDataExtension(final Consumer<IndexData<?>> loader) {
+    public LoadEsDataExtension(final Consumer<IndexData> loader) {
         this.loader = loader;
     }
 
@@ -56,18 +56,19 @@ public class LoadEsDataExtension
 
         this.loader = getDataLoader(context);
 
-        // es data can either be specified by:
+        // es data can be specified either by:
         // - using one or many @LoadEsData on the test class (in conjunction with @ExtendWith(LoadEsDataExtension.class)
         // - using the convenient @LoadEsDataConfig that combines the two annotations above
+        // - or using both
 
-        List<IndexData<?>> classData = Stream.concat(
+        List<IndexData> classData = Stream.concat(
                 findRepeatableAnnotations(context.getRequiredTestClass(), LoadEsData.class).stream(),
                 findAnnotation(context.getRequiredTestClass(), LoadEsDataConfig.class)
                         .map(c -> Stream.of(c.data(), c.value()).flatMap(Arrays::stream)).orElse(Stream.empty()))
                 .map(IndexData::of)//
                 .collect(Collectors.toList());
 
-        for (IndexData<?> d : classData)
+        for (IndexData d : classData)
             this.loader.accept(d);
 
     }
@@ -79,12 +80,12 @@ public class LoadEsDataExtension
 
     @Override
     public void beforeEach(final ExtensionContext context) throws Exception {
-        List<IndexData<?>> methodData = findRepeatableAnnotations(context.getRequiredTestMethod(), LoadEsData.class)//
+        List<IndexData> methodData = findRepeatableAnnotations(context.getRequiredTestMethod(), LoadEsData.class)//
                 .stream()//
                 .map(IndexData::of)//
                 .collect(Collectors.toList());
 
-        for (IndexData<?> d : methodData)
+        for (IndexData d : methodData)
             getDataLoader(context).accept(d);
     }
 
@@ -137,9 +138,9 @@ public class LoadEsDataExtension
      * Get the {@link com.github.spring.esdata.loader.core.SpringEsDataLoader} associated with the supplied
      * {@code ExtensionContext}.
      *
-     * @return the {@code Consumer<IndexData<?>>} (never {@code null})
+     * @return the {@code Consumer<IndexData>} (never {@code null})
      */
-    private static Consumer<IndexData<?>> getDataLoader(final ExtensionContext context) {
+    private static Consumer<IndexData> getDataLoader(final ExtensionContext context) {
         Assert.notNull(context, "ExtensionContext must not be null");
         Store store = getStore(context);
         ApplicationContext appContext = getApplicationContext(context);

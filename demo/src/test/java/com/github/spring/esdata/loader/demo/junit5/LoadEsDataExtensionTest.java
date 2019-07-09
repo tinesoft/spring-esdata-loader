@@ -19,7 +19,14 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@Testcontainers
+
+/**
+ * Simple integration test to illustrate how to use the library when testing with JUnit Jupiter.
+ *
+ * @author tinesoft
+ *
+ */
+@Testcontainers // helper to easily start a dockerized Elasticsearch server to run our tests against (not required to use this library)
 
 // The following annotation registers the @LoadEsDataExtention with JUnit Jupiter
 // and defines which data to load into the underlying Elasticsearch Server.
@@ -28,12 +35,12 @@ import static org.assertj.core.api.Assertions.assertThat;
 		@LoadEsData(esEntityClass = AuthorEsEntity.class, location = "/data/authors.json"),//
 		@LoadEsData(esEntityClass = BookEsEntity.class, location = "/data/books.json.gz"), // built-in support for gzipped files
 })
-
 @SpringBootTest
-@ContextConfiguration(initializers = LoadEsDataExtensionTest.ExposeDockerizedEsServer.class)
+
+@ContextConfiguration(initializers = LoadEsDataExtensionTest.ExposeDockerizedElasticsearchServer.class)//for this test setup only, not required in general
 public class LoadEsDataExtensionTest {
 
-	@Container
+	@Container // helper to easily start a dockerized Elasticsearch server to run our tests against (not required to use this library)
 	private static final ElasticsearchContainer ES_CONTAINER = new ElasticsearchContainer(DemoTestPropertyValues.ES_DOCKER_IMAGE_VERSION);
 
 	@Autowired
@@ -52,7 +59,7 @@ public class LoadEsDataExtensionTest {
 		assertThat(authors).hasSize(10);
 	}
 
-	static class ExposeDockerizedEsServer implements ApplicationContextInitializer<ConfigurableApplicationContext> {
+	static class ExposeDockerizedElasticsearchServer implements ApplicationContextInitializer<ConfigurableApplicationContext> {
 
 		@Override
 		public void initialize(ConfigurableApplicationContext cac) {
