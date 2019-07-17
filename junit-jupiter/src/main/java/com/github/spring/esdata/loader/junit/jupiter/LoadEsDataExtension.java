@@ -1,4 +1,4 @@
-package com.github.spring.esdata.loader.junit5;
+package com.github.spring.esdata.loader.junit.jupiter;
 
 import com.github.spring.esdata.loader.core.IndexData;
 import com.github.spring.esdata.loader.core.LoadEsData;

@@ -16,7 +16,7 @@ project(':spring-esdata-loader-junit4') {
     }
 }
 
-project(':spring-esdata-loader-junit5') {
+project(':spring-esdata-loader-junit-jupiter') {
     apply plugin: 'java-library'
     dependencies {
         api project(':spring-esdata-loader-core')
@@ -26,6 +26,6 @@ project(':spring-esdata-loader-junit5') {
 project(':spring-esdata-loader-demo') {
     apply plugin: 'java'
     dependencies {
-        implementation project(':spring-esdata-loader-junit4'), project(':spring-esdata-loader-junit5')
+        implementation project(':spring-esdata-loader-junit4'), project(':spring-esdata-loader-junit-jupiter')
     }
 }

@@ -1,10 +1,10 @@
-include 'core', 'demo', 'junit4', 'junit5'
+include 'core', 'demo', 'junit4', 'junit-jupiter'
 
 rootProject.name = 'spring-esdata-loader'
 
 project(':core').name = 'spring-esdata-loader-core'
 project(':demo').name = 'spring-esdata-loader-demo'
 project(':junit4').name = 'spring-esdata-loader-junit4'
-project(':junit5').name = 'spring-esdata-loader-junit5'
+project(':junit-jupiter').name = 'spring-esdata-loader-junit-jupiter'
 
 

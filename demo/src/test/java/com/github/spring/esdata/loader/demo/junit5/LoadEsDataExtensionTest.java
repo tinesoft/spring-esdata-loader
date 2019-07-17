@@ -8,7 +8,7 @@ import com.github.spring.esdata.loader.demo.model.LibraryEsEntity;
 import com.github.spring.esdata.loader.demo.repository.AuthorEsRepository;
 import com.github.spring.esdata.loader.demo.repository.BookEsRepository;
 import com.github.spring.esdata.loader.demo.repository.LibraryEsRepository;
-import com.github.spring.esdata.loader.junit5.LoadEsDataConfig;
+import com.github.spring.esdata.loader.junit.jupiter.LoadEsDataConfig;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
