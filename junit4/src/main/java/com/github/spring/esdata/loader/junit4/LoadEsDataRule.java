@@ -2,11 +2,9 @@ package com.github.spring.esdata.loader.junit4;
 
 import com.github.spring.esdata.loader.core.IndexData;
 import com.github.spring.esdata.loader.core.LoadEsData;
-import com.github.spring.esdata.loader.core.LoadMultipleEsData;
 import com.github.spring.esdata.loader.core.SpringUtils;
-import org.junit.rules.MethodRule;
 import org.junit.rules.TestRule;
-import org.junit.runners.model.FrameworkMethod;
+import org.junit.runner.Description;
 import org.junit.runners.model.Statement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,26 +12,25 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.test.context.TestContextManager;
 import org.springframework.util.Assert;
 
-import java.util.Arrays;
+import java.lang.reflect.Method;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
+
+import static org.springframework.core.annotation.AnnotatedElementUtils.findMergedRepeatableAnnotations;
 
 /**
  * JUnit4 {@link TestRule} to load data into Elasticsearch either before all tests, or before each test.
  *
  * @author tinesoft
  */
-public class LoadEsDataRule implements MethodRule {
+public class LoadEsDataRule implements JunitJupiterExtensionLikeTestRule {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(LoadEsDataRule.class);
 
 	private Consumer<IndexData> loader;
-	private IndexData[] initialData;
-	private static AtomicBoolean firstLoad = new AtomicBoolean(true);// need to be static for class level
 
 	/**
 	 * Cache of {@code TestContextManagers} keyed by test class.
@@ -42,44 +39,56 @@ public class LoadEsDataRule implements MethodRule {
 
 
 	/**
-	 * @param data
-	 *            the data to be loaded before each test method (unless overwriten
-	 *            with a {@literal @}LoadEsData)
+	 * Constructor
 	 */
-	public LoadEsDataRule(final IndexData... data) {
-		this(null, data);
+	public LoadEsDataRule() {
+		this(null);
 	}
 
 	/**
+	 * Constructor using the given loader.
 	 * @param loader
 	 *            the code that will actually load the data into Elasticsearch
-	 * @param data
-	 *            the data to be loaded before each test method (unless overwritten
-	 *            with a {@literal @}LoadEsData)
 	 */
-	public LoadEsDataRule(final Consumer<IndexData> loader, final IndexData... data) {
+	public LoadEsDataRule(final Consumer<IndexData> loader) {
 		this.loader = loader;
-		this.initialData = data;
 	}
 
 	@Override
-	public Statement apply(final Statement base, final FrameworkMethod method, final Object testInstance) {
+	public void beforeAll(Statement base, Description description) throws Exception {
+		this.loader = SpringUtils.getDataLoader(getApplicationContext(description.getTestClass()));
 
-		List<LoadEsData> loadEsDataAnnotations = Arrays.stream(method.getAnnotations())//
-				.filter(a -> a instanceof LoadMultipleEsData)// repeatable annotations are contained in their parent
-				.map(LoadMultipleEsData.class::cast)//
-				.flatMap(m -> Arrays.stream(m.value()))// retrieve each single LoadEsData annotation
+		List<IndexData> classData = findMergedRepeatableAnnotations(description.getTestClass(), LoadEsData.class)
+				.stream()
+				.map(IndexData::of)//
 				.collect(Collectors.toList());
 
-		Statement statement = base;
-		statement = withLoadEsData(statement, loadEsDataAnnotations,testInstance);
-		statement = withTestContextManagerCacheEvictor(statement, testInstance);
-
-		return statement;
+		for (IndexData d : classData)
+			this.loader.accept(d);
 	}
 
-	private static ApplicationContext getApplicationContext(Object testInstance){
-		Class<?> testClass = testInstance.getClass();
+	@Override
+	public void before(Statement base, Description description) throws Exception {
+		this.loader = SpringUtils.getDataLoader(getApplicationContext(description.getTestClass()));
+
+		Method testMethod = description.getTestClass().getDeclaredMethod(description.getMethodName());
+
+		List<IndexData> methodData = findMergedRepeatableAnnotations(testMethod, LoadEsData.class)
+				.stream()//
+				.map(IndexData::of)//
+				.collect(Collectors.toList());
+
+		for (IndexData d : methodData)
+			this.loader.accept(d);
+	}
+
+	@Override
+	public void afterAll(Statement base, Description description) {
+		testContextManagerCache.remove(description.getTestClass());
+	}
+
+
+	private static ApplicationContext getApplicationContext(Class<?> testClass) {
 		TestContextManager testContextManager = getTestContextManager(testClass);
 		return testContextManager.getTestContext().getApplicationContext();
 	}
@@ -93,87 +102,4 @@ public class LoadEsDataRule implements MethodRule {
 		return testContextManagerCache.computeIfAbsent(testClass, TestContextManager::new);
 	}
 
-	/**
-	 * Wrap the supplied {@link Statement} with a {@code LoadEsDataStatement} statement.
-	 * @see LoadEsDataStatement
-	 */
-	private Statement withLoadEsData(Statement next, List<LoadEsData> loadEsDataAnnotations, Object testInstance) {
-		return new LoadEsDataStatement(next, loadEsDataAnnotations,testInstance);
-	}
-
-	/**
-	 * Wrap the supplied {@link Statement} with a {@code TestContextManagerCacheEvictorStatement} statement.
-	 * @see TestContextManagerCacheEvictorStatement
-	 */
-	private Statement withTestContextManagerCacheEvictor(Statement next, Object testInstance) {
-		Class<?> testClass = testInstance.getClass();
-		return new TestContextManagerCacheEvictorStatement(next, testClass);
-	}
-
-
-	private static class TestContextManagerCacheEvictorStatement extends Statement {
-
-		private final Statement next;
-
-		private final Class<?> testClass;
-
-		TestContextManagerCacheEvictorStatement(Statement next, Class<?> testClass) {
-			this.next = next;
-			this.testClass = testClass;
-		}
-
-		@Override
-		public void evaluate() throws Throwable {
-			try {
-				this.next.evaluate();
-			}
-			finally {
-				testContextManagerCache.remove(this.testClass);
-			}
-		}
-	}
-
-	private class LoadEsDataStatement extends Statement {
-		private final Statement base;
-		private final List<LoadEsData> loadEsDataAnnotations;
-		private final Object testInstance;
-
-		public LoadEsDataStatement(Statement base, List<LoadEsData> loadEsDataAnnotations, Object testInstance) {
-			this.base = base;
-			this.loadEsDataAnnotations = loadEsDataAnnotations;
-			this.testInstance = testInstance;
-		}
-
-		@Override
-		public void evaluate() throws Throwable {
-
-			boolean shouldReloadEsData = !loadEsDataAnnotations.isEmpty();
-			boolean hasInitialData = initialData.length > 0;
-
-			loader = SpringUtils.getDataLoader(getApplicationContext(testInstance));
-
-			// before test: (re)load test data
-			if (firstLoad.get() && hasInitialData || shouldReloadEsData) {
-
-				if (shouldReloadEsData) { // load the specified es data
-					for (LoadEsData a : loadEsDataAnnotations) {
-						IndexData d = IndexData.of((Class<?>) a.esEntityClass(), a.location(), a.nbMaxItems(),
-								a.nbSkipItems());
-						loader.accept(d);
-					}
-				} else { // reload the same initial data
-
-					for (IndexData d : initialData)
-						loader.accept(d);
-				}
-
-				firstLoad.set(shouldReloadEsData);
-			} else
-				LOGGER.debug(
-						"Skipping data load because isFirstLoad={} or hasInitialData={} and shouldReloadEsData={} ",
-						firstLoad.get(), hasInitialData, shouldReloadEsData);
-
-			base.evaluate();// run the actual test
-		}
-	}
 }
