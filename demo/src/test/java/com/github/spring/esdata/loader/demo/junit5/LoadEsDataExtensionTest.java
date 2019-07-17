@@ -4,8 +4,10 @@ import com.github.spring.esdata.loader.core.LoadEsData;
 import com.github.spring.esdata.loader.demo.DemoTestPropertyValues;
 import com.github.spring.esdata.loader.demo.model.AuthorEsEntity;
 import com.github.spring.esdata.loader.demo.model.BookEsEntity;
+import com.github.spring.esdata.loader.demo.model.LibraryEsEntity;
 import com.github.spring.esdata.loader.demo.repository.AuthorEsRepository;
 import com.github.spring.esdata.loader.demo.repository.BookEsRepository;
+import com.github.spring.esdata.loader.demo.repository.LibraryEsRepository;
 import com.github.spring.esdata.loader.junit5.LoadEsDataConfig;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,8 +31,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 @Testcontainers // helper to easily start a dockerized Elasticsearch server to run our tests against (not required to use this library)
 
 // The following annotation registers the @LoadEsDataExtention with JUnit Jupiter
-// and defines which data to load into the underlying Elasticsearch Server.
-// The data will be loaded only once before all tests (i.e in the beforeAll() phase)
+// and specifies which data to load into the underlying Elasticsearch Server.
+// The data will be loaded only once, before all tests (i.e in the beforeAll() phase)
 @LoadEsDataConfig({ //
 		@LoadEsData(esEntityClass = AuthorEsEntity.class, location = "/data/authors.json"),//
 		@LoadEsData(esEntityClass = BookEsEntity.class, location = "/data/books.json.gz"), // built-in support for gzipped files
@@ -49,14 +51,33 @@ public class LoadEsDataExtensionTest {
 	@Autowired
 	private BookEsRepository esBookRepository;
 
+	@Autowired
+	private LibraryEsRepository esLibraryRepository;
+
 	@Test
-	public void testLoader() {
+	public void dataLoadedAtClassLevel() {
 
 		Iterable<AuthorEsEntity> authors = this.esAuthorRepository.findAll();
 		Iterable<BookEsEntity> books = this.esBookRepository.findAll();
+		Iterable<LibraryEsEntity> libraries = this.esLibraryRepository.findAll();
 
 		assertThat(books).hasSize(10);
 		assertThat(authors).hasSize(10);
+		assertThat(libraries).isEmpty();//loaded at method level, see below #dataLoadedAtMethodLevel()
+	}
+
+	@Test
+	// the following data will be loaded for this test only. You can even specify how many data to load and how many to skip
+	@LoadEsData(esEntityClass = LibraryEsEntity.class, location = "/data/libraries.json.gz", nbMaxItems = 5, nbSkipItems = 2)
+	public void dataLoadedAtMethodLevel() {
+
+		Iterable<AuthorEsEntity> authors = this.esAuthorRepository.findAll();
+		Iterable<BookEsEntity> books = this.esBookRepository.findAll();
+		Iterable<LibraryEsEntity> libraries = this.esLibraryRepository.findAll();
+
+		assertThat(books).hasSize(10);//loaded at class level, before all tests
+		assertThat(authors).hasSize(10);//loaded at class level, before all tests
+		assertThat(libraries).hasSize(5);
 	}
 
 	static class ExposeDockerizedElasticsearchServer implements ApplicationContextInitializer<ConfigurableApplicationContext> {
