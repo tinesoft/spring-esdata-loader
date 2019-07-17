@@ -39,20 +39,26 @@ import static org.assertj.core.api.Assertions.assertThat;
 @LoadEsData(esEntityClass = BookEsEntity.class, location = "/data/books.json.gz") // built-in support for gzipped files
 
 
-@ContextConfiguration(initializers = LoadEsDataRuleTest.ExposeDockerizedElasticsearchServer.class)//for this test setup only, not required in general
+@ContextConfiguration(initializers = LoadEsDataRuleTest.ExposeDockerizedElasticsearchServer.class)
+//(for this test setup only) not required in general
 public class LoadEsDataRuleTest {
 
-	//@ClassRule // helper to easily start a dockerized Elasticsearch server to run our tests against (not required to use this library)
+	//@ClassRule
+	// helper to easily start a dockerized Elasticsearch server to run our tests against (not required to use this library)
 	public final static ElasticsearchContainer ES_CONTAINER = new ElasticsearchContainer(DemoTestPropertyValues.ES_DOCKER_IMAGE_VERSION);
 
-	//@Rule
-	//@ClassRule
+	//@ClassRule 
+	// this rule allows to load data at class level (using @LoadEsData annotations on the test class)
 	public static final LoadEsDataRule ES_DATA_LOADER_RULE = new LoadEsDataRule();
 
-	@Rule// this rule allows to load data at method level
+	@Rule // this rule allows to load data at test method level (using @LoadEsData annotations on the test method)
 	public final LoadEsDataRule esDataLoaderRule = ES_DATA_LOADER_RULE;
 
+
 	@ClassRule
+	// (for this test setup only) we need to make sure that ES_CONTAINER rule is loaded BEFORE
+	// our ES_DATA_LOADER_RULE, to make sure that the dockerized Elasticsearch server is started BEFORE
+	// we try to load data into it via our ES_DATA_LOADER_RULE
 	public final static TestRule RUlE = RuleChain.outerRule(ES_CONTAINER).around(ES_DATA_LOADER_RULE);
 
 	@Autowired
