@@ -1,12 +1,12 @@
 package com.github.spring.esdata.loader.core;
 
-import java.util.Map;
-import java.util.function.Consumer;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
+
+import java.util.Map;
+import java.util.function.Consumer;
 
 /**
  * Utility class to interact with Spring.
@@ -46,7 +46,8 @@ public final class SpringUtils {
 
     /**
      * Retrieve a {@link ElasticsearchTemplate} from the {@link ApplicationContext} and creates a data loader from it.
-     * @return a {@link Consumer} that accepts one or more {@link IndexData} objects and inserts them in the underlying ES Server.
+	 * @param appContext the Spring {@link ApplicationContext}
+	 * @return a {@link Consumer} that accepts one or more {@link IndexData} objects and inserts them in the underlying ES Server.
      */
 	public static Consumer<IndexData> getDataLoader(final ApplicationContext appContext) {
 

@@ -11,14 +11,14 @@ import java.lang.annotation.*;
  * {@link ExtendWith @ExtendWith(LoadEsDataExtension.class)} from JUnit Jupiter
  * with the ability to directly define {@link LoadEsData @LoadEsData} to load.
  * <br><br>
- * It is a shorchut for having both
+ * It is a shortcut for having both:
  * <pre>
- *     @ExtendWith(LoadEsDataExtension.class)
- *     @LoadEsData(esEntityClass = BookEsEntity.class, location = "/data/books.json"), //
- *     @LoadEsData(esEntityClass = AuthorEsEntity.class, location = "/data/authors.json.gz"),//
- *     public class MyTest{
+ *  &#064;ExtendWith(LoadEsDataExtension.class)
+ *  &#064;LoadEsData(esEntityClass = BookEsEntity.class, location = "/data/books.json")
+ *  &#064;LoadEsData(esEntityClass = AuthorEsEntity.class, location = "/data/authors.json.gz")
+ *  public class MyTest{
  *
- *     }
+ *  }
  * </pre>
  *
  *
@@ -36,12 +36,14 @@ public @interface LoadEsDataConfig {
 
 	/**
 	 * Alias for {@link LoadEsDataConfig#data}.
+	 * @return the data
 	 */
 	@AliasFor("data")
 	LoadEsData[] value() default {};
 
 	/**
 	 * Alias for {@link LoadEsDataConfig#value}.
+	 * @return the data
 	 */
 	@AliasFor("value")
 	LoadEsData[] data() default {};

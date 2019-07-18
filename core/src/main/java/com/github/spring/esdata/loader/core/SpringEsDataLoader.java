@@ -40,35 +40,35 @@ public class SpringEsDataLoader {
 
     /**
      * Loads given data into ElasticSearch. Target indices are dropped and recreated before data are inserted in bulk.
-     *
+	 * @param d the data to load
      */
 	public void load(final IndexData d) {
 
 		// first recreate the index
 		LOGGER.info("Recreating Index for '{}'...", d.getEsEntityClass().getSimpleName());
-		esTemplate.deleteIndex(d.esEntityClass);
-		esTemplate.createIndex(d.esEntityClass);
-		esTemplate.putMapping(d.esEntityClass);
-		esTemplate.refresh(d.esEntityClass);
+		this.esTemplate.deleteIndex(d.esEntityClass);
+		this.esTemplate.createIndex(d.esEntityClass);
+		this.esTemplate.putMapping(d.esEntityClass);
+		this.esTemplate.refresh(d.esEntityClass);
 
-		ElasticsearchPersistentEntity<?> esEntityInfo = esTemplate.getPersistentEntityFor(d.esEntityClass);
+		ElasticsearchPersistentEntity<?> esEntityInfo = this.esTemplate.getPersistentEntityFor(d.esEntityClass);
 
 		LOGGER.debug("Inserting data in Index of '{}'. Please wait...", d.getEsEntityClass().getSimpleName());
 
 		// then insert data into it
 		try (InputStream is = this.getClass().getResourceAsStream(d.getLocation()); //
 				BufferedReader br = new BufferedReader(
-						new InputStreamReader(d.gzipped ? new GZIPInputStream(is) : is, StandardCharsets.UTF_8));) {
+						new InputStreamReader(d.gzipped ? new GZIPInputStream(is) : is, StandardCharsets.UTF_8))) {
 
 			List<IndexQuery> indexQueries = br.lines()// each line represent a document to be indexed
 					.peek((l) -> LOGGER.debug("Preparing IndexQuery for line: '{}'", l))//
-					.map(line -> this.getIndexQuery(line, esEntityInfo.getIndexName(), esEntityInfo.getIndexType()))//
+					.map(line -> SpringEsDataLoader.getIndexQuery(line, esEntityInfo.getIndexName(), esEntityInfo.getIndexType()))//
 					.skip(d.nbSkipItems)//
 					.limit(d.nbMaxItems)//
 					.collect(Collectors.toList());
 
-			esTemplate.bulkIndex(indexQueries);
-			esTemplate.refresh(d.esEntityClass);
+			this.esTemplate.bulkIndex(indexQueries);
+			this.esTemplate.refresh(d.esEntityClass);
 
 			LOGGER.debug("Insertion successfully done");
 		} catch (IOException e) {
@@ -90,7 +90,7 @@ public class SpringEsDataLoader {
 	 * @return the {@link IndexQuery} built from the parsed JSON line
      * @see <a href="https://www.npmjs.com/package/elasticdump">elasticdump</a> (requires NodeJS)
 	 */
-	private IndexQuery getIndexQuery(final String jsonLine, final String indexName, final String indexType) {
+	private static IndexQuery getIndexQuery(final String jsonLine, final String indexName, final String indexType) {
 
 		JsonNode jsonNode;
 		try {

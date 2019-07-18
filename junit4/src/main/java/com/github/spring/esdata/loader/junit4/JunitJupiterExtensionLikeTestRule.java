@@ -9,7 +9,6 @@ import org.junit.runners.model.Statement;
  * {@link JunitJupiterExtensionLikeTestRule#afterAll} callbacks, just like Junit Jupiter's Extensions.
  *
  * @author tinesoft
- * @see {@linkplain https://stackoverflow.com/a/48759584/445311} <a href="https://stackoverflow.com/a/48759584/445311"></a>
  *
  */
 public interface JunitJupiterExtensionLikeTestRule extends TestRule {
@@ -55,9 +54,7 @@ public interface JunitJupiterExtensionLikeTestRule extends TestRule {
 		// let the implementer decide whether this method is useful to implement
 	}
 
-	/**
-	 * Only runs for Tests that pass
-	 */
+
 	default void verify(final Statement base, final Description description) {
 		// let the implementer decide whether this method is useful to implement
 	}
