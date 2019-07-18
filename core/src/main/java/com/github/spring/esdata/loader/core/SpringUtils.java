@@ -11,6 +11,8 @@ import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
 /**
  * Utility class to interact with Spring.
  *
+ * @author tinesoft
+ *
  */
 public final class SpringUtils {
 

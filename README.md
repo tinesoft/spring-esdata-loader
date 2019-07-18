@@ -14,7 +14,7 @@ present in your application context.
 ## Features
 
 *  **Simple API** and no configuration required
-*  Support  for  **JUnit4** via LoadEsDataRule
+*  Support  for  **JUnit4** via `LoadEsDataRule`
 *  Support  for  **JUnit  Jupiter** via `@LoadEsDataConfig` or `@LoadEsDataExtension`
 *  Built-in support for GZip
 *  Written  in  **Java  8**
@@ -49,49 +49,41 @@ To get started,
     <tr>
         <td>JUnit4</td>
         <td>
-<pre lang="groovy">
-dependencies {
+<pre lang="groovy">dependencies {
     testImplementation 'com.github.spring-esdata-loader:spring-esdata-loader-junit4:1.0.0'
-}
-</pre>
+}</pre>
         </td>
         <td>
-<pre lang="xml">
-&lt;dependency&gt;
+<pre lang="xml">&lt;dependency&gt;
     &lt;groupId&gt;com.github.spring-esdata-loader&lt;/groupId&gt;
     &lt;artifactId>spring-esdata-loader-junit4&lt;/artifactId&gt;
     &lt;version>1.0.0&lt;/version&gt;
     &lt;scope>test&lt;/scope&gt;
-&lt;/dependency&gt;
-</pre>
+&lt;/dependency&gt;</pre>
         </td>
     </tr>
     <tr>
         <td>JUnit Jupiter</td>
         <td>
-<pre lang="groovy">
-dependencies {
+<pre lang="groovy">dependencies {
     testImplementation 'com.github.spring-esdata-loader:spring-esdata-loader-junit-jupiter:1.0.0'
-}
-</pre>
+}</pre>
         </td>
         <td>
-<pre lang="xml">
-&lt;dependency&gt;
+<pre lang="xml">&lt;dependency&gt;
     &lt;groupId&gt;com.github.spring-esdata-loader&lt;/groupId&gt;
     &lt;artifactId>spring-esdata-loader-junit-jupiter&lt;/artifactId&gt;
     &lt;version>1.0.0&lt;/version&gt;
     &lt;scope>test&lt;/scope&gt;
-&lt;/dependency&gt;
-</pre>
+&lt;/dependency&gt;</pre>
         </td>
     </tr>
 </table>
 
 2. write your test class. You can have a look at:
 
-  * [LoadEsDataRuleTest.java](demo/src/test/java/com/github/spring/esdata/loader/demo/junit4/LoadEsDataRuleTest.java) - if your are using **JUnit4**
-  * [LoadEsDataExtensionTest.java](demo/src/test/java/com/github/spring/esdata/loader/demo/junit4/LoadEsDataExtensionTest.java) - if you are using **JUnit Jupiter**
+  * [junit4](/junit4) - if your are using **JUnit4**
+  * [junit-jupiter](/junit/jupiter) - if you are using **JUnit Jupiter**
 
 ## Data Format
 
@@ -116,9 +108,9 @@ from your Elasticseach server, and them dump them into a JSON file.
 ```
 $ npx elasticdump --input=http://localhost:9200/my_index --output=my_index_data.json
 ```
-> The above command will run `elasticdump` to extract data from index named `my_index` on a ES server located at http://localhost:9200 and then save the result into a file named `my_index_data.json`
+> The above command will run `elasticdump` to extract data from an index named `my_index` on a ES server located at http://localhost:9200 and then save the result into a file named `my_index_data.json`
 
-> If you change the `--output` part above into `--output=$ | gzip my_data.json.gz` the data will automatically be gzipped as well
+> If you change the `--output` part above into `--output=$ | gzip my_data.json.gz` the data will be automatically gzipped
 
 ## Contributing
 

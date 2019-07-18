@@ -18,6 +18,9 @@ import java.util.zip.GZIPInputStream;
 
 /**
  * Loader that use Spring Data's {@link ElasticsearchTemplate} to load data into Elasticsearch.
+ *
+ * @author tinesoft
+ *
  */
 public class SpringEsDataLoader {
 

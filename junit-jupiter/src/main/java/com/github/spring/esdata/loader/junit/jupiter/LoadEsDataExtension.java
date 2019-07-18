@@ -26,6 +26,7 @@ import static org.junit.platform.commons.support.AnnotationSupport.findRepeatabl
  * JUnit {@link Extension} to load data into Elasticsearch either before all tests, or before each test.
  *
  * @author tinesoft
+ *
  */
 public class LoadEsDataExtension
         implements TestInstancePostProcessor, BeforeAllCallback, AfterAllCallback, BeforeEachCallback {

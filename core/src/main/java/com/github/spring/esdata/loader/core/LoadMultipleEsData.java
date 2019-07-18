@@ -6,9 +6,8 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Containing annotation to allow repeating {@literal @}LoadEsData, no need to
- * use it directly in code.
- * 
+ * Containing annotation to allow repeating {@literal @}LoadEsData, no need to use it directly in code.
+ *
  * @see <a href=
  *      "https://docs.oracle.com/javase/tutorial/java/annotations/repeating.html">Repeating
  *      Annotations</ap>

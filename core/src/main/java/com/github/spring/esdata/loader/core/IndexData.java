@@ -13,7 +13,6 @@ package com.github.spring.esdata.loader.core;
  *
  * @author tinesoft
  *
- * @param <T>
  */
 public class IndexData {
 
