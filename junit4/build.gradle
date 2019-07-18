@@ -3,6 +3,8 @@ plugins {
     id 'java-library'
 }
 
+apply from: "$rootDir/gradle/published.gradle"
+
 dependencies {
     api 'junit:junit:4.12'
 }

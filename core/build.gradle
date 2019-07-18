@@ -3,6 +3,8 @@ plugins {
     id 'java-library'
 }
 
+apply from: "$rootDir/gradle/published.gradle"
+
 dependencies {
     implementation 'com.fasterxml.jackson.core:jackson-databind:2.9.9'
     api 'org.springframework.data:spring-data-elasticsearch:3.1.8.RELEASE'
