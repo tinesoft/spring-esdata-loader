@@ -12,6 +12,7 @@ buildscript {
     }
 }
 
+
 allprojects {
     apply plugin: "nebula.release"
 
@@ -21,9 +22,8 @@ allprojects {
         jcenter() 
     }
 }
-	
-subprojects {
-}
+
+subprojects { apply plugin: "java" }
 
 project(':spring-esdata-loader-junit4') {
     apply plugin: 'java-library'
@@ -44,4 +44,16 @@ project(':spring-esdata-loader-demo') {
     dependencies {
         implementation project(':spring-esdata-loader-junit4'), project(':spring-esdata-loader-junit-jupiter')
     }
+}
+
+def publishedProjects = subprojects.findAll { it.name != 'spring-esdata-loader-demo' }
+task aggregateJavadocs(type: Javadoc) {
+
+    description = 'Aggregates Javadoc API documentation of all subprojects.'
+    group = JavaBasePlugin.DOCUMENTATION_GROUP
+    dependsOn publishedProjects.javadoc
+
+    source publishedProjects.javadoc.source
+    destinationDir file("$rootProject.buildDir/docs/javadoc")
+    classpath = files(publishedProjects.javadoc.classpath)
 }
