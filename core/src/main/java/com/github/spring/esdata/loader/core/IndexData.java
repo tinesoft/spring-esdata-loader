@@ -25,10 +25,9 @@ public class IndexData {
 	/**
 	 *
 	 * @param esEntityClass
-	 *            the mapping class of the data to be indexed in ES
+	 *            mapping class of the data to be indexed in ES
 	 * @param location
-	 *            path to the file that contains a dump (generated with
-	 *            'elasticdump' for i.e)
+	 *            path to the file that contains data (as JSON) to be indexed
 	 * @param gzipped
 	 *            whether or not the data is gzipped (true by default)
 	 * @param nbMaxItems
@@ -45,34 +44,64 @@ public class IndexData {
 		this.nbSkipItems = nbSkipItems;
 	}
 
+	/**
+	 * Builds a new {@link IndexData} using provided parameters.
+	 *
+	 * @param esEntityClass mapping class of the data to be indexed in ES
+	 * @param location      path to the file that contains data (as JSON) to be indexed
+	 * @return a new {@link IndexData}
+	 */
 	public static IndexData of(final Class<?> esEntityClass, final String location) {
 		return of(esEntityClass, location, Long.MAX_VALUE, 0L);
 	}
 
-	public static IndexData of(final Class<?> clazz, final String location, final Long nbMaxItems) {
-		return of(clazz, location, nbMaxItems, 0L);
+	/**
+	 * Builds a new {@link IndexData} using provided parameters.
+	 *
+	 * @param esEntityClass mapping class of the data to be indexed in ES
+	 * @param location      path to the file that contains data (as JSON) to be indexed
+	 * @param nbMaxItems    maximum number of items to load
+	 * @return a new {@link IndexData}
+	 */
+	public static IndexData of(final Class<?> esEntityClass, final String location, final Long nbMaxItems) {
+		return of(esEntityClass, location, nbMaxItems, 0L);
 	}
 
-	public static IndexData of(final Class<?> clazz, final String location, final Long nbMaxItems,
-			final Long nbSkipItems) {
+	/**
+	 * Builds a new {@link IndexData} using provided parameters.
+	 *
+	 * @param esEntityClass mapping class of the data to be indexed in ES
+	 * @param location      path to the file that contains data (as JSON) to be indexed
+	 * @param nbMaxItems    maximum number of items to load
+	 * @param nbSkipItems   number of items to skip
+	 * @return a new {@link IndexData}
+	 */
+	public static IndexData of(final Class<?> esEntityClass, final String location, final Long nbMaxItems,
+							   final Long nbSkipItems) {
 		boolean gzipped = location.toLowerCase().endsWith(".gz");
-		return new IndexData(clazz, location, gzipped, nbMaxItems, nbSkipItems);
+		return new IndexData(esEntityClass, location, gzipped, nbMaxItems, nbSkipItems);
 	}
 
+	/**
+	 * Builds a new {@link IndexData} using provided parameter.
+	 *
+	 * @param a {@link LoadEsData} to construct the data from
+	 * @return a new {@link IndexData}
+	 */
 	public static IndexData of(final LoadEsData a) {
 		return of(a.esEntityClass(), a.location(), a.nbMaxItems(), a.nbSkipItems());
 	}
 
 	public Class<?> getEsEntityClass() {
-		return esEntityClass;
+		return this.esEntityClass;
 	}
 
 	public String getLocation() {
-		return location;
+		return this.location;
 	}
 
 	public boolean isGzipped() {
-		return gzipped;
+		return this.gzipped;
 	}
 
 }

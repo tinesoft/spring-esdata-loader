@@ -6,7 +6,7 @@ import org.junit.runners.model.Statement;
 
 /**
  * Custom {@link TestRule} that easily exposes {@link JunitJupiterExtensionLikeTestRule#before}, {@link JunitJupiterExtensionLikeTestRule#beforeAll}, {@link JunitJupiterExtensionLikeTestRule#after},
- * {@link JunitJupiterExtensionLikeTestRule#afterAll} callbacks, just like Junit Jupiter's Extensions.
+ * {@link JunitJupiterExtensionLikeTestRule#afterAll} callbacks, just like Junit Jupiter API does.
  *
  * @author tinesoft
  *
@@ -46,31 +46,70 @@ public interface JunitJupiterExtensionLikeTestRule extends TestRule {
 		return base;
 	}
 
+	/**
+	 * Callback that is called <i>after</i> a test is executed.
+	 *
+	 * @param base        The {@link Statement} to be modified
+	 * @param description A {@link Description} of the test implemented in {@code base}
+	 * @throws Exception if an error occurres
+	 */
 	default void before(final Statement base, final Description description) throws Exception {
 		// let the implementer decide whether this method is useful to implement
 	}
 
-	default void after(final Statement base, final Description description) {
+	/**
+	 * Callback that is called <i>after</i> a test is executed.
+	 *
+	 * @param base        The {@link Statement} to be modified
+	 * @param description A {@link Description} of the test implemented in {@code base}
+	 * @throws Exception if an error occurres
+	 */
+	default void after(final Statement base, final Description description) throws Exception{
 		// let the implementer decide whether this method is useful to implement
 	}
 
-
-	default void verify(final Statement base, final Description description) {
+	/**
+	 * Callback that is called <i>only if</i> a test passes.
+	 *
+	 * @param base        The {@link Statement} to be modified
+	 * @param description A {@link Description} of the test implemented in {@code base}
+	 * @throws Exception if an error occurres
+	 */
+	default void verify(final Statement base, final Description description) throws Exception{
 		// let the implementer decide whether this method is useful to implement
 	}
 
+	/**
+	 * Callback that is called <i>before</i> all tests are executed.
+	 *
+	 * @param base        The {@link Statement} to be modified
+	 * @param description A {@link Description} of the test implemented in {@code base}
+	 * @throws Exception  if an error occurres
+	 */
 	default void beforeAll(final Statement base, final Description description) throws Exception {
 		this.before(base, description);
 	}
 
-	default void afterAll(final Statement base, final Description description) {
+	/**
+	 * Callback that is called <i>after</i> all tests are executed.
+	 *
+	 * @param base        The {@link Statement} to be modified
+	 * @param description A {@link Description} of the test implemented in {@code base}
+	 * @throws Exception if an error occurres
+	 */
+	default void afterAll(final Statement base, final Description description) throws Exception {
 		this.after(base, description);
 	}
 
+
 	/**
-	 * Only runs for Suites that pass
+	 * Callback that is called <i>only if</i> all tests pass.
+	 *
+	 * @param base The {@link Statement} to be modified
+	 * @param description A {@link Description} of the test implemented in {@code base}
+	 * @throws Exception  if an error occurres
 	 */
-	default void verifyAll(final Statement base, final Description description) {
+	default void verifyAll(final Statement base, final Description description) throws Exception {
 		this.verify(base, description);
 	}
 }

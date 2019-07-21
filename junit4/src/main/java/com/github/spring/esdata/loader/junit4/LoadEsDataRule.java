@@ -83,7 +83,7 @@ public class LoadEsDataRule implements JunitJupiterExtensionLikeTestRule {
 	}
 
 	@Override
-	public void afterAll(Statement base, Description description) {
+	public void afterAll(Statement base, Description description) throws Exception {
 		testContextManagerCache.remove(description.getTestClass());
 	}
 
