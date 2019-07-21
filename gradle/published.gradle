@@ -4,15 +4,15 @@ apply plugin: "nebula.source-jar"
 apply plugin: "nebula.nebula-bintray-publishing"
 
 bintray {
-  user = System.getenv("BINTRAY_USER")
-  key = System.getenv("BINTRAY_KEY")
-  pkg {
-    userOrg = "tinesoft"
-    repo = "spring-esdata-loader"
-    websiteUrl = "https://github.com/tinesoft/spring-esdata-loader"
-    issueTrackerUrl = "https://github.com/tinesoft/spring-esdata-loader/issues"
-    vcsUrl = "https://github.com/tinesoft/spring-esdata-loader.git"
-    licenses = ["MIT"]
-    labels = ["spring-data-elasticsearch", "elasticsearch", "junit4", "junit-jupiter", "testing", "integration-test"]
-  }
+  user = System.getenv("BINTRAY_USER") ?: "tinesoft"
+  apiKey = System.getenv("BINTRAY_KEY") ?: ""
+
+  userOrg = "tinesoft"
+  repo = "spring-esdata-loader"
+  pkgName = "spring-esdata-loader"
+  websiteUrl = "https://github.com/tinesoft/spring-esdata-loader"
+  issueTrackerUrl = "https://github.com/tinesoft/spring-esdata-loader/issues"
+  vcsUrl = "https://github.com/tinesoft/spring-esdata-loader.git"
+  licenses = ["MIT"]
+  labels = ["spring-data-elasticsearch", "elasticsearch", "junit4", "junit-jupiter", "testing", "integration-test"]
 }
