@@ -1,0 +1,26 @@
+apply plugin: 'org.ajoberstar.git-publish'
+
+ext {
+    repoPath = 'tinesoft/spring-esdata-loader'
+    ghToken = System.getenv('GH_TOKEN')
+}
+
+gitPublish {
+    if (ghToken) {
+        repoUri = "https://github.com/${repoPath}.git"
+        credentials {
+            username = ghToken
+            password = ''
+        }
+    } else {
+        repoUri = "git@github.com:${repoPath}.git"
+    }
+
+    contents {
+        from(aggregateJavadocs.outputs.files) {
+            into 'docs/javadoc'
+        }
+    }
+}
+
+gitPublishPush.dependsOn aggregateJavadocs

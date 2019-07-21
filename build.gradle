@@ -9,6 +9,8 @@ buildscript {
         classpath "com.netflix.nebula:nebula-bintray-plugin:3.5.2"
         // just silences a warning because by default an older version is transitively pulled in
         classpath "org.jfrog.buildinfo:build-info-extractor-gradle:4.7.3"
+
+        classpath "org.ajoberstar:gradle-git-publish:2.1.1"
     }
 }
 
@@ -57,3 +59,5 @@ task aggregateJavadocs(type: Javadoc) {
     destinationDir file("$rootProject.buildDir/docs/javadoc")
     classpath = files(publishedProjects.javadoc.classpath)
 }
+
+apply from: "$rootDir/gradle/ghpages.gradle"
