@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
 import static org.springframework.core.annotation.AnnotatedElementUtils.findMergedRepeatableAnnotations;
 
 /**
- * JUnit4 {@link TestRule} to load data into Elasticsearch either before all tests, or before each test.
+ * JUnit 4 {@link TestRule} to load data into Elasticsearch either before all tests, or before each test.
  *
  * @author tinesoft
  */

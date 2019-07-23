@@ -1,9 +1,9 @@
-# spring-esdata-loader-junit4 submodule
+# spring-esdata-loader-junit4
 
-**JUnit4** implementation of the library.
+**JUnit 4** implementation of the library.
 
-
-The module is all you need  to start using the library with **JUnit4**. It defines a TestRule named `LoadEsDataRule` that you can use to insert data into your ES server,
+This sub-module is that is needed to start using the library with **JUnit 4**.
+It defines a `TestRule` named `LoadEsDataRule` that can be used to insert data into Eelasticsearch,
 before all tests are run (class level), or just before a specific test is run (method level).
 
 Here is an example:
@@ -16,7 +16,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-@RunWith(SpringRunner.class) // required to run JUnit4 tests with Spring magic
+@RunWith(SpringRunner.class) // required to run JUnit 4 tests with Spring magic
 //@SpringBootTest or any @ContextConfiguration(..) to initialize the Spring context that contains the ElasticsearchTemplate
 
 @LoadEsData(esEntityClass=MyEsEntity1.class, location="/path/to/data1.json")

@@ -1,20 +1,15 @@
 
-
-
-
-# spring-esdata-loader -  Set of JUnit  Rule/Extension to easily load data to test your [spring-data elasticsearch](https://spring.io/projects/spring-data-elasticsearch)-based project
+# spring-esdata-loader
 [![Build  Status](https://travis-ci.org/tinesoft/spring-esdata-loader.svg?branch=master)](https://travis-ci.org/tinesoft/spring-esdata-loader)
 
-`spring-esdata-loader` is a Java testing library to help you write integration tests for your spring data elasticsearch based project, by allowing you to easily load data into your Elasticsearch server,
-based on the entity mappings that you defined via the entity class (annotated with `@Document`, `@Field`, etc).
+`spring-esdata-loader` is a Java testing library to help write integration tests for [spring-data elasticsearch](https://spring.io/projects/spring-data-elasticsearch)-based projects, by allowing to easily load data into Elasticsearch, using entity mappings (i.e domain classes annotated with `@Document`, `@Field`, etc) and via a specfic **Junit 4**'s Rule or **JUnit Jupiter**'s Extension.
 
-The library reads all the metadata it needs from the entity class (index name, index type, etc) , uses them to refresh the index on the ES server and feeds it with the data using the `ElasticsearchTemplate`
-present in your application context.
+The library reads all the metadata it needs from the entity class (index name, index type, etc) , uses them to create/refresh the index on the ES server and feeds it with the data using the `ElasticsearchTemplate` present in your test application context.
 
 ## Features
 
 *  **Simple API** and no configuration required
-*  Support  for  **JUnit4** via `LoadEsDataRule`
+*  Support  for  **JUnit 4** via `LoadEsDataRule`
 *  Support  for  **JUnit  Jupiter** via `@LoadEsDataConfig` or `@LoadEsDataExtension`
 *  Built-in support for GZip
 *  Written  in  **Java  8**
@@ -30,10 +25,9 @@ present in your application context.
 
 ## Installation & Usage
 
-
 The library is splitted into 2 independent sub-modules, both will be available on Maven Central (*soon*):
 
-* `spring-esdata-loader-junit4` for testing with **JUnit4**
+* `spring-esdata-loader-junit4` for testing with **JUnit 4**
 * `spring-esdata-loader-junit-jupiter` for testing with **JUnit Jupiter**
 
 To get started,
@@ -47,7 +41,7 @@ To get started,
         <th>Maven</th>
     </tr>
     <tr>
-        <td>JUnit4</td>
+        <td>JUnit 4</td>
         <td>
 <pre lang="groovy">dependencies {
     testImplementation 'com.github.spring-esdata-loader:spring-esdata-loader-junit4:1.0.0'
@@ -82,7 +76,7 @@ To get started,
 
 2. write your test class. You can have a look at:
 
-  * [junit4](/junit4) - if your are using **JUnit4**
+  * [junit4](/junit4) - if your are using **JUnit 4**
   * [junit-jupiter](/junit/jupiter) - if you are using **JUnit Jupiter**
 
 ## Data Format

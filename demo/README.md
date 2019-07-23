@@ -1,7 +1,7 @@
-# spring-esdata-loader-demo submodule
+# spring-esdata-loader-demo
 
-**Spring Boot** based demo application, to show how to use the library to test your own projects, using either **JUnit4** or new **JUnit Jupiter**.
+**Spring Boot** based demo application, to show how to use this testing library, using either **JUnit 4** or new **JUnit Jupiter** platform.
 
-This project uses awesome [Testcontainers](https://www.testcontainers.org/) library to setup a Dockerized Elasticseach server during the tests.
+This project uses testing library [Testcontainers](https://www.testcontainers.org/) to setup a dockerized Elasticseach server during the tests.
 
 So to run the tests locally, you must have **Docker** installed.

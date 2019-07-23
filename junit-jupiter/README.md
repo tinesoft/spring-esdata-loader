@@ -1,9 +1,9 @@
-# spring-esdata-loader-junit-jupiter submodule
+# spring-esdata-loader-junit-jupiter
 
 **JUnit Jupiter** implementation of the library.
 
-
-The module is all you need  to start using the library with the new **JUnit Jupiter**. It defines an Extension named `LoadEsDataExtention` that you can use to insert data into your ES server,
+The sub-module is all that is needed to start using the library with the brand new **JUnit Jupiter**. 
+It defines an `Extension` named `LoadEsDataExtention` that can be used to insert data into Elasticsearch,
 before all tests are run (class level), or just before a specific test is run (method level).
 
 Here is an example:
@@ -15,7 +15,7 @@ import org.junit.jupiter.api.Test;
 
 //@SpringBootTest or any @ContextConfiguration(..) to initialize the Spring context that contains the ElasticsearchTemplate
 
-@LoadEsDataConfig({ // @LoadEsDataConfig is a metat annotation that is itself annotated with @ExtendWith(LoadEsDataExtension.class)
+@LoadEsDataConfig({ // @LoadEsDataConfig is a meta annotation that is itself annotated with @ExtendWith(LoadEsDataExtension.class)
     @LoadEsData(esEntityClass=MyEsEntity1.class, location="/path/to/data1.json"),
     @LoadEsData(esEntityClass=MyEsEntity2.class, location="/path/to/data2.json")
 })
@@ -35,4 +35,4 @@ public class MyJunitJupiterTestClass{
 ```
 
 A full example can be seen in demo project:
-*  [LoadEsDataExtensionTest.java](/demo/src/test/java/com/github/spring/esdata/loader/demo/junit/juipter/LoadEsDataExtensionTest.java)
+*  [LoadEsDataExtensionTest.java](/demo/src/test/java/com/github/spring/esdata/loader/demo/junit/jupiter/LoadEsDataExtensionTest.java)
