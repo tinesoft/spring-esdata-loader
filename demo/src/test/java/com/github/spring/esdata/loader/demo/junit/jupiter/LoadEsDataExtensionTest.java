@@ -1,4 +1,4 @@
-package com.github.spring.esdata.loader.demo.junit5;
+package com.github.spring.esdata.loader.demo.junit.jupiter;
 
 import com.github.spring.esdata.loader.core.LoadEsData;
 import com.github.spring.esdata.loader.demo.DemoTestPropertyValues;
