@@ -61,6 +61,7 @@ public class SpringEsDataLoader {
 						new InputStreamReader(d.gzipped ? new GZIPInputStream(is) : is, StandardCharsets.UTF_8))) {
 
 			List<IndexQuery> indexQueries = br.lines()// each line represent a document to be indexed
+        .parallel()// let's speed things up a lil'bit :)
 					.peek((l) -> LOGGER.debug("Preparing IndexQuery for line: '{}'", l))//
 					.map(line -> SpringEsDataLoader.getIndexQuery(line, esEntityInfo.getIndexName(), esEntityInfo.getIndexType()))//
 					.skip(d.nbSkipItems)//
