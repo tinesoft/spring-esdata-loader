@@ -15,10 +15,10 @@ buildscript {
 allprojects {
     apply plugin: "nebula.release"
 
-    group = 'com.github.spring-esdata-loader'
+    group = 'com.github.tinesoft'
 
     repositories {
-        jcenter() 
+      jcenter()
     }
 }
 
@@ -58,3 +58,4 @@ task aggregateJavadocs(type: Javadoc) {
 }
 
 apply from: "$rootDir/gradle/ghpages.gradle"
+
