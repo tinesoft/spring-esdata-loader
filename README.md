@@ -11,7 +11,7 @@ The library reads all the metadata it needs from the entity class (index name, i
 *  **Simple API** and no configuration required
 *  Support  for  **JUnit 4** via `LoadEsDataRule`
 *  Support  for  **JUnit  Jupiter** via `@LoadEsDataConfig` or `@LoadEsDataExtension`
-*  Built-in support for GZip
+*  Built-in support for **gzipped data**
 *  Written  in  **Java  8**
 *  Based on **Spring (Data, Test)**
 
@@ -77,7 +77,7 @@ To get started,
 2. write your test class. You can have a look at:
 
   * [junit4](/junit4) - if your are using **JUnit 4**
-  * [junit-jupiter](/junit/jupiter) - if you are using **JUnit Jupiter**
+  * [junit-jupiter](/junit-jupiter) - if you are using **JUnit Jupiter**
 
 ## Data Format
 
