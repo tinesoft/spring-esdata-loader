@@ -1,9 +1,11 @@
 language: java
+sudo: false
 install: true
+script: "./gradle/buildViaTravis.sh"
 
 jdk:
   - openjdk8
-
+  
 services:
   - docker
 
@@ -15,25 +17,7 @@ env:
     - secure: Bvvg89uCv9O2CfZRNGnXt9DYlS1hgz4/0vARrBdnOI3rH2he8JB/KKqGlU3QusBRFM+KdmHMysHDgdQM30VmLvC3BTMlA9zrS0zxvKyLZpREY7i2YrNoL5pebC/ro6I7ZcoPGFARkrtgd1bTvK3CFVlFPxutEdv4w44UWnCWtPG99OajsgY7gIhlpd1AXdcnawkxnwN9EELmtZbQFZk0mvRqzR5BcurcZRUiXGwWmsLzQOk0Gr3Ok3ZwBpvH2sVsoXrZRtDogcr1qFKrGnxIpSaH14f4x7CD6ChXAy8CC374sNvwZSBvNkIaDbT+YL889RMC/OSpIN/EZGoMguEcKPtaQAXLRpJqVAqNxFH68LmNIjrQ31TLvtiuAihECyjxuYOzG3gEvtIlHXxQ1Jqfkb5j0gBgmja4SFaP44bJ6Xv/9nktJwc7fRQzLzr+Ri5090TXJYNuRyu5n8Uk7N128yUw1By0k+lp5jr2z2gLbgN5Jy7Xm4nSiiESWqDRxgq7pOhZ8HwtJr5Ngy1JzILQGppKO7OdESoor2okFoosshNLYveneQTpk8+ILtht+fdshkiQMZ7PBhyqiL8JQaKsEoUmJ4ZfIMWL7Qzz8Yx1kJhc7eukRoCbtKD/dLo6tVAf3+PCAAWTWw7FbcSQnFWkwioRGF4r/WJdHEXj7+epmD0=
     - secure: ouXfdNXxCRNrXODUXiLR7ewXfoW02/Nw7k6Ft9UgbD2xi2AeNouSMUZyUih/CXXQIwQ8jBotD4A+/jwK2oSyDNi03z2lEjovxSQhJYZFdoObBRQpqoPcITTPdAWjgx1Fe53huuP8zkwBNKY05SKPONrq6AESmvSEK5Ax9ECcWeT4TWQ+/8MjrosVAtM5DJe99ngWhGZglxts8JVuVvqLrNMJmsVMu+3PDwg7MEE/hjTERQ0v7SFVNp+U/gBNsSW+hjT8qGy9Kr2mtKfcF52+5TuDoVXq04ugQP120jokmGshrZcQCPNal9NIZTd/Lmzo+c+dJhVT7YFvWoh4sAATZPhALdDCU1oU/3+LVcvcMeByez8ZsyhEfYDgb7v3WeWGa4uYe8B3whmyHZ2PsylCNaxzgYgRLK1RvkGmpPM+Rb8dJy/WhBd20hH1lcSOTssoZXcjNzSkp67h7ZqBdbdUD53aw3D7KSA8o9/wue4Su4f761/sLvOpG/+d5p5o/gmB8KU40E9L+q1+DOBIn9RZEa3mSwhf5b4yhbT48AGXMFlwpvMMKiKJYQ53H/1ktgoZh31h5JHRjo0dZncBRavqyQ0KebNC6GBkn6B9rPrrZXPVX5PZBNa7Q1CYHRLtY+UsGE8UhEDOD1RSiFXUYHhULUQBNU1QYx8DkelkC+kJhwI=
 
-before_cache:
-- rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
-- rm -fr $HOME/.gradle/caches/*/plugin-resolution/
 cache:
   directories:
   - "$HOME/.gradle/caches/"
   - "$HOME/.gradle/wrapper/"
-
-stages:
-- name: build
-- name: snapshot
-  if: branch = develop
-- name: release
-  if: branch = master
-jobs:
-  include:
-  - stage: build
-    script: "./gradlew build"
-  - stage: snapshot
-    script: "./gradlew artifactoryDeploy  -x test"
-  - stage: release
-    script: "./gradlew -Prelease.useLastTag=true final -x test"

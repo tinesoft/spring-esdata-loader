@@ -12,7 +12,6 @@ bintray {
 
   userOrg = "tinesoft"
   repo = "maven"
-  pkgName = "spring-esdata-loader"
   websiteUrl = "https://github.com/tinesoft/spring-esdata-loader"
   issueTrackerUrl = "https://github.com/tinesoft/spring-esdata-loader/issues"
   vcsUrl = "https://github.com/tinesoft/spring-esdata-loader.git"
