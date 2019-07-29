@@ -3,7 +3,7 @@ plugins {
     id 'java-library'
 }
 
-apply from: "$rootDir/gradle/published.gradle"
+apply from: "$rootDir/gradle/submodule.gradle"
 
 dependencies {
     api 'org.junit.jupiter:junit-jupiter-api:5.4.2'

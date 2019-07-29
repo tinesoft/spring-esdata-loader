@@ -45,17 +45,5 @@ project(':spring-esdata-loader-demo') {
     }
 }
 
-def publishedProjects = subprojects.findAll { it.name != 'spring-esdata-loader-demo' }
-task aggregateJavadocs(type: Javadoc) {
-
-    description = 'Aggregates Javadoc API documentation of all subprojects.'
-    group = JavaBasePlugin.DOCUMENTATION_GROUP
-    dependsOn publishedProjects.javadoc
-
-    source publishedProjects.javadoc.source
-    destinationDir file("$rootProject.buildDir/docs/javadoc")
-    classpath = files(publishedProjects.javadoc.classpath)
-}
-
-apply from: "$rootDir/gradle/ghpages.gradle"
+apply from: "$rootDir/gradle/rootmodule.gradle"
 

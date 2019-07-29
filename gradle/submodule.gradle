@@ -1,0 +1,5 @@
+// aggregate of configurations to apply to the each sub project
+
+apply from: "$rootDir/gradle/credentials.gradle"
+apply from: "$rootDir/gradle/publishing.gradle"
+apply from: "$rootDir/gradle/bintray.gradle"
