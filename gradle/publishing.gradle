@@ -1,6 +1,15 @@
+apply plugin: "java"
 apply plugin: "nebula.maven-publish"
 apply plugin: "nebula.javadoc-jar"
 apply plugin: "nebula.source-jar"
+
+rootProject.semanticRelease {
+  repo {
+    releaseAsset jar
+    releaseAsset sourceJar
+    releaseAsset javadocJar
+  }
+}
 
 project.publishing {
   publications {

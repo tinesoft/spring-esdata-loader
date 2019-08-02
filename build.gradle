@@ -9,15 +9,16 @@ buildscript {
       classpath "com.netflix.nebula:gradle-contacts-plugin:5.0.3"
       classpath "com.netflix.nebula:gradle-git-scm-plugin:4.1.6"
       classpath "com.netflix.nebula:nebula-publishing-plugin:8.1.0"
-      classpath "com.netflix.nebula:nebula-release-plugin:11.1.0"
       classpath "com.netflix.nebula:nebula-bintray-plugin:7.3.0"
+      classpath "org.jfrog.buildinfo:build-info-extractor-gradle:4.9.8"
       classpath "org.ajoberstar:gradle-git-publish:2.1.1"
+      classpath "de.gliderpilot.gradle.semantic-release:gradle-semantic-release-plugin:1.4.0"
     }
 }
 description = "Set of JUnit Rules & Extensions to easily load data to test your spring-data elasticsearch-based projects"
 
 allprojects {
-  apply plugin: "nebula.release"
+  apply plugin: 'de.gliderpilot.semantic-release'
 
   group = 'com.github.tinesoft'
 

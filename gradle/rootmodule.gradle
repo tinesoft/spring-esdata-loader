@@ -2,7 +2,9 @@
 
 apply from: "$rootDir/gradle/credentials.gradle"
 apply from: "$rootDir/gradle/metadata.gradle"
+apply from: "$rootDir/gradle/publishing.gradle"
 apply from: "$rootDir/gradle/published.gradle"
 apply from: "$rootDir/gradle/javadoc.gradle"
 apply from: "$rootDir/gradle/ghpages.gradle"
 apply from: "$rootDir/gradle/locking.gradle"
+apply from: "$rootDir/gradle/semrel.gradle"

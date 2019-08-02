@@ -1,0 +1,11 @@
+apply plugin: 'de.gliderpilot.semantic-release'
+apply plugin: "com.jfrog.artifactory"
+
+semanticRelease {
+  repo.ghToken = project.ghToken
+}
+
+if (!version.toString().endsWith('-SNAPSHOT'))
+  publish.dependsOn publishPackageToBintray
+else if ((System.getenv('TRAVIS_PULL_REQUEST') ?: "false") == "false")
+  publish.dependsOn artifactoryPublish
