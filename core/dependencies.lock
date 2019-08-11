@@ -1,0 +1,104 @@
+{
+    "compileClasspath": {
+        "com.fasterxml.jackson.core:jackson-databind": {
+            "locked": "2.9.9",
+            "requested": "2.9.9"
+        },
+        "org.slf4j:slf4j-api": {
+            "locked": "1.7.26",
+            "requested": "1.7.26"
+        },
+        "org.springframework.data:spring-data-elasticsearch": {
+            "locked": "3.1.8.RELEASE",
+            "requested": "3.1.8.RELEASE"
+        },
+        "org.springframework:spring-test": {
+            "locked": "5.1.7.RELEASE",
+            "requested": "5.1.7.RELEASE"
+        }
+    },
+    "default": {
+        "com.fasterxml.jackson.core:jackson-databind": {
+            "locked": "2.9.9",
+            "requested": "2.9.9"
+        },
+        "org.slf4j:slf4j-api": {
+            "locked": "1.7.26",
+            "requested": "1.7.26"
+        },
+        "org.springframework.data:spring-data-elasticsearch": {
+            "locked": "3.1.8.RELEASE",
+            "requested": "3.1.8.RELEASE"
+        },
+        "org.springframework:spring-test": {
+            "locked": "5.1.7.RELEASE",
+            "requested": "5.1.7.RELEASE"
+        }
+    },
+    "runtimeClasspath": {
+        "com.fasterxml.jackson.core:jackson-databind": {
+            "locked": "2.9.9",
+            "requested": "2.9.9"
+        },
+        "org.slf4j:slf4j-api": {
+            "locked": "1.7.26",
+            "requested": "1.7.26"
+        },
+        "org.springframework.data:spring-data-elasticsearch": {
+            "locked": "3.1.8.RELEASE",
+            "requested": "3.1.8.RELEASE"
+        },
+        "org.springframework:spring-test": {
+            "locked": "5.1.7.RELEASE",
+            "requested": "5.1.7.RELEASE"
+        }
+    },
+    "testCompileClasspath": {
+        "com.fasterxml.jackson.core:jackson-databind": {
+            "locked": "2.9.9",
+            "requested": "2.9.9"
+        },
+        "org.junit.jupiter:junit-jupiter-api": {
+            "locked": "5.4.2",
+            "requested": "5.4.2"
+        },
+        "org.slf4j:slf4j-api": {
+            "locked": "1.7.26",
+            "requested": "1.7.26"
+        },
+        "org.springframework.data:spring-data-elasticsearch": {
+            "locked": "3.1.8.RELEASE",
+            "requested": "3.1.8.RELEASE"
+        },
+        "org.springframework:spring-test": {
+            "locked": "5.1.7.RELEASE",
+            "requested": "5.1.7.RELEASE"
+        }
+    },
+    "testRuntimeClasspath": {
+        "com.fasterxml.jackson.core:jackson-databind": {
+            "locked": "2.9.9",
+            "requested": "2.9.9"
+        },
+        "org.junit.jupiter:junit-jupiter-api": {
+            "locked": "5.4.2",
+            "requested": "5.4.2"
+        },
+        "org.junit.jupiter:junit-jupiter-engine": {
+            "locked": "5.4.2",
+            "requested": "5.4.2"
+        },
+        "org.slf4j:slf4j-api": {
+            "locked": "1.7.26",
+            "requested": "1.7.26"
+        },
+        "org.springframework.data:spring-data-elasticsearch": {
+            "locked": "3.1.8.RELEASE",
+            "requested": "3.1.8.RELEASE"
+        },
+        "org.springframework:spring-test": {
+            "locked": "5.1.7.RELEASE",
+            "requested": "5.1.7.RELEASE"
+        }
+    }
+}

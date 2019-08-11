@@ -1,0 +1,294 @@
+{
+    "compileClasspath": {
+        "com.github.tinesoft:spring-esdata-loader-core": {
+            "firstLevelTransitive": [
+                "com.github.tinesoft:spring-esdata-loader-junit-jupiter",
+                "com.github.tinesoft:spring-esdata-loader-junit4"
+            ],
+            "project": true
+        },
+        "com.github.tinesoft:spring-esdata-loader-junit-jupiter": {
+            "project": true
+        },
+        "com.github.tinesoft:spring-esdata-loader-junit4": {
+            "project": true
+        },
+        "junit:junit": {
+            "firstLevelTransitive": [
+                "com.github.tinesoft:spring-esdata-loader-junit4"
+            ],
+            "locked": "4.12"
+        },
+        "org.junit.jupiter:junit-jupiter-api": {
+            "firstLevelTransitive": [
+                "com.github.tinesoft:spring-esdata-loader-junit-jupiter"
+            ],
+            "locked": "5.5.0"
+        },
+        "org.slf4j:slf4j-api": {
+            "firstLevelTransitive": [
+                "com.github.tinesoft:spring-esdata-loader-core"
+            ],
+            "locked": "1.7.26"
+        },
+        "org.springframework.boot:spring-boot-starter-data-elasticsearch": {
+            "locked": "2.1.6.RELEASE"
+        },
+        "org.springframework.data:spring-data-elasticsearch": {
+            "firstLevelTransitive": [
+                "com.github.tinesoft:spring-esdata-loader-core"
+            ],
+            "locked": "3.1.9.RELEASE"
+        },
+        "org.springframework:spring-test": {
+            "firstLevelTransitive": [
+                "com.github.tinesoft:spring-esdata-loader-core"
+            ],
+            "locked": "5.1.8.RELEASE"
+        }
+    },
+    "default": {
+        "com.fasterxml.jackson.core:jackson-databind": {
+            "firstLevelTransitive": [
+                "com.github.tinesoft:spring-esdata-loader-core"
+            ],
+            "locked": "2.9.9"
+        },
+        "com.github.tinesoft:spring-esdata-loader-core": {
+            "firstLevelTransitive": [
+                "com.github.tinesoft:spring-esdata-loader-junit-jupiter",
+                "com.github.tinesoft:spring-esdata-loader-junit4"
+            ],
+            "project": true
+        },
+        "com.github.tinesoft:spring-esdata-loader-junit-jupiter": {
+            "project": true
+        },
+        "com.github.tinesoft:spring-esdata-loader-junit4": {
+            "project": true
+        },
+        "junit:junit": {
+            "firstLevelTransitive": [
+                "com.github.tinesoft:spring-esdata-loader-junit4"
+            ],
+            "locked": "4.12"
+        },
+        "org.junit.jupiter:junit-jupiter-api": {
+            "firstLevelTransitive": [
+                "com.github.tinesoft:spring-esdata-loader-junit-jupiter"
+            ],
+            "locked": "5.5.0"
+        },
+        "org.slf4j:slf4j-api": {
+            "firstLevelTransitive": [
+                "com.github.tinesoft:spring-esdata-loader-core"
+            ],
+            "locked": "1.7.26"
+        },
+        "org.springframework.boot:spring-boot-starter-data-elasticsearch": {
+            "locked": "2.1.6.RELEASE"
+        },
+        "org.springframework.data:spring-data-elasticsearch": {
+            "firstLevelTransitive": [
+                "com.github.tinesoft:spring-esdata-loader-core"
+            ],
+            "locked": "3.1.9.RELEASE"
+        },
+        "org.springframework:spring-test": {
+            "firstLevelTransitive": [
+                "com.github.tinesoft:spring-esdata-loader-core"
+            ],
+            "locked": "5.1.8.RELEASE"
+        }
+    },
+    "runtimeClasspath": {
+        "com.fasterxml.jackson.core:jackson-databind": {
+            "firstLevelTransitive": [
+                "com.github.tinesoft:spring-esdata-loader-core"
+            ],
+            "locked": "2.9.9"
+        },
+        "com.github.tinesoft:spring-esdata-loader-core": {
+            "firstLevelTransitive": [
+                "com.github.tinesoft:spring-esdata-loader-junit-jupiter",
+                "com.github.tinesoft:spring-esdata-loader-junit4"
+            ],
+            "project": true
+        },
+        "com.github.tinesoft:spring-esdata-loader-junit-jupiter": {
+            "project": true
+        },
+        "com.github.tinesoft:spring-esdata-loader-junit4": {
+            "project": true
+        },
+        "junit:junit": {
+            "firstLevelTransitive": [
+                "com.github.tinesoft:spring-esdata-loader-junit4"
+            ],
+            "locked": "4.12"
+        },
+        "org.junit.jupiter:junit-jupiter-api": {
+            "firstLevelTransitive": [
+                "com.github.tinesoft:spring-esdata-loader-junit-jupiter"
+            ],
+            "locked": "5.5.0"
+        },
+        "org.slf4j:slf4j-api": {
+            "firstLevelTransitive": [
+                "com.github.tinesoft:spring-esdata-loader-core"
+            ],
+            "locked": "1.7.26"
+        },
+        "org.springframework.boot:spring-boot-starter-data-elasticsearch": {
+            "locked": "2.1.6.RELEASE"
+        },
+        "org.springframework.data:spring-data-elasticsearch": {
+            "firstLevelTransitive": [
+                "com.github.tinesoft:spring-esdata-loader-core"
+            ],
+            "locked": "3.1.9.RELEASE"
+        },
+        "org.springframework:spring-test": {
+            "firstLevelTransitive": [
+                "com.github.tinesoft:spring-esdata-loader-core"
+            ],
+            "locked": "5.1.8.RELEASE"
+        }
+    },
+    "testCompileClasspath": {
+        "com.github.tinesoft:spring-esdata-loader-core": {
+            "firstLevelTransitive": [
+                "com.github.tinesoft:spring-esdata-loader-junit-jupiter",
+                "com.github.tinesoft:spring-esdata-loader-junit4"
+            ],
+            "project": true
+        },
+        "com.github.tinesoft:spring-esdata-loader-junit-jupiter": {
+            "project": true
+        },
+        "com.github.tinesoft:spring-esdata-loader-junit4": {
+            "project": true
+        },
+        "junit:junit": {
+            "firstLevelTransitive": [
+                "com.github.tinesoft:spring-esdata-loader-junit4"
+            ],
+            "locked": "4.12"
+        },
+        "org.junit.jupiter:junit-jupiter": {
+            "locked": "5.5.0"
+        },
+        "org.junit.jupiter:junit-jupiter-api": {
+            "firstLevelTransitive": [
+                "com.github.tinesoft:spring-esdata-loader-junit-jupiter"
+            ],
+            "locked": "5.5.0"
+        },
+        "org.slf4j:slf4j-api": {
+            "firstLevelTransitive": [
+                "com.github.tinesoft:spring-esdata-loader-core"
+            ],
+            "locked": "1.7.26"
+        },
+        "org.springframework.boot:spring-boot-starter-data-elasticsearch": {
+            "locked": "2.1.6.RELEASE"
+        },
+        "org.springframework.boot:spring-boot-starter-test": {
+            "locked": "2.1.6.RELEASE"
+        },
+        "org.springframework.data:spring-data-elasticsearch": {
+            "firstLevelTransitive": [
+                "com.github.tinesoft:spring-esdata-loader-core"
+            ],
+            "locked": "3.1.9.RELEASE"
+        },
+        "org.springframework:spring-test": {
+            "firstLevelTransitive": [
+                "com.github.tinesoft:spring-esdata-loader-core"
+            ],
+            "locked": "5.1.8.RELEASE"
+        },
+        "org.testcontainers:elasticsearch": {
+            "locked": "1.11.3",
+            "requested": "1.11.3"
+        },
+        "org.testcontainers:junit-jupiter": {
+            "locked": "1.11.3",
+            "requested": "1.11.3"
+        }
+    },
+    "testRuntimeClasspath": {
+        "com.fasterxml.jackson.core:jackson-databind": {
+            "firstLevelTransitive": [
+                "com.github.tinesoft:spring-esdata-loader-core"
+            ],
+            "locked": "2.9.9"
+        },
+        "com.github.tinesoft:spring-esdata-loader-core": {
+            "firstLevelTransitive": [
+                "com.github.tinesoft:spring-esdata-loader-junit-jupiter",
+                "com.github.tinesoft:spring-esdata-loader-junit4"
+            ],
+            "project": true
+        },
+        "com.github.tinesoft:spring-esdata-loader-junit-jupiter": {
+            "project": true
+        },
+        "com.github.tinesoft:spring-esdata-loader-junit4": {
+            "project": true
+        },
+        "junit:junit": {
+            "firstLevelTransitive": [
+                "com.github.tinesoft:spring-esdata-loader-junit4"
+            ],
+            "locked": "4.12"
+        },
+        "org.junit.jupiter:junit-jupiter": {
+            "locked": "5.5.0"
+        },
+        "org.junit.jupiter:junit-jupiter-api": {
+            "firstLevelTransitive": [
+                "com.github.tinesoft:spring-esdata-loader-junit-jupiter"
+            ],
+            "locked": "5.5.0"
+        },
+        "org.junit.platform:junit-platform-launcher": {
+            "locked": "1.5.0"
+        },
+        "org.junit.vintage:junit-vintage-engine": {
+            "locked": "5.5.0"
+        },
+        "org.slf4j:slf4j-api": {
+            "firstLevelTransitive": [
+                "com.github.tinesoft:spring-esdata-loader-core"
+            ],
+            "locked": "1.7.26"
+        },
+        "org.springframework.boot:spring-boot-starter-data-elasticsearch": {
+            "locked": "2.1.6.RELEASE"
+        },
+        "org.springframework.boot:spring-boot-starter-test": {
+            "locked": "2.1.6.RELEASE"
+        },
+        "org.springframework.data:spring-data-elasticsearch": {
+            "firstLevelTransitive": [
+                "com.github.tinesoft:spring-esdata-loader-core"
+            ],
+            "locked": "3.1.9.RELEASE"
+        },
+        "org.springframework:spring-test": {
+            "firstLevelTransitive": [
+                "com.github.tinesoft:spring-esdata-loader-core"
+            ],
+            "locked": "5.1.8.RELEASE"
+        },
+        "org.testcontainers:elasticsearch": {
+            "locked": "1.11.3",
+            "requested": "1.11.3"
+        },
+        "org.testcontainers:junit-jupiter": {
+            "locked": "1.11.3",
+            "requested": "1.11.3"
+        }
+    }
+}
