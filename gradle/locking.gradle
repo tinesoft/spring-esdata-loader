@@ -1,0 +1,6 @@
+commitDependencyLock {
+  message = 'chore(dependencies): update dependency lock files'
+  shouldCreateTag = false
+  tag = { "LockCommit-${new Date().format('yyyyMMddHHmmss')}" }
+  remoteRetries = 3
+}
