@@ -8,13 +8,12 @@ The library reads all the metadata it needs from the entity class (index name, i
 
 ## Features
 
-*  **Simple API** and no configuration required
-*  Support  for  **JUnit 4** via `LoadEsDataRule`
-*  Support  for  **JUnit  Jupiter** via `@LoadEsDataConfig` or `@LoadEsDataExtension`
-*  Built-in support for **gzipped data**
-*  Written  in  **Java  8**
-*  Based on **Spring (Data, Test)**
-
+* **Simple API** and no configuration required
+* Support  for  **JUnit 4** via `LoadEsDataRule`
+* Support  for  **JUnit  Jupiter** via `@LoadEsDataConfig` or `@LoadEsDataExtension`
+* Built-in support for **gzipped data**
+* Written  in  **Java  8**
+* Based on **Spring (Data, Test)**
 
 ## Dependencies
 
@@ -25,7 +24,7 @@ The library reads all the metadata it needs from the entity class (index name, i
 
 ## Installation & Usage
 
-The library is splitted into 2 independent sub-modules, both will be available on Maven Central (*soon*):
+The library is splitted into 2 independent sub-modules, both will be available on [Bintray](https://bintray.com/tinesoft/maven), Maven Central (*soon*):
 
 * `spring-esdata-loader-junit4` for testing with **JUnit 4**
 * `spring-esdata-loader-junit-jupiter` for testing with **JUnit Jupiter**
@@ -76,8 +75,8 @@ To get started,
 
 2. write your test class. You can have a look at:
 
-  * [junit4](/junit4) - if your are using **JUnit 4**
-  * [junit-jupiter](/junit-jupiter) - if you are using **JUnit Jupiter**
+* [junit4](/junit4) - if your are using **JUnit 4**
+* [junit-jupiter](/junit-jupiter) - if you are using **JUnit Jupiter**
 
 ## Data Format
 
@@ -102,6 +101,7 @@ from your Elasticseach server, and them dump them into a JSON file.
 ```
 $ npx elasticdump --input=http://localhost:9200/my_index --output=my_index_data.json
 ```
+
 > The above command will run `elasticdump` to extract data from an index named `my_index` on a ES server located at http://localhost:9200 and then save the result into a file named `my_index_data.json`
 
 > If you change the `--output` part above into `--output=$ | gzip my_data.json.gz` the data will be automatically gzipped
