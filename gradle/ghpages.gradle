@@ -1,13 +1,14 @@
 apply plugin: 'org.ajoberstar.git-publish'
 
 gitPublish {
-    repoUri = "https://github.com/tinesoft/spring-esdata-loader.git"
-    branch = "gh-pages"
-    contents {
-        from(aggregateJavadocs.outputs.files) {
-            into 'docs/javadoc'
-        }
+  repoUri = "https://github.com/tinesoft/spring-esdata-loader.git"
+  branch = "gh-pages"
+  commitMessage = "chore(javadoc): publish javadoc to gh-pages"
+  contents {
+    from(aggregateJavadocs.outputs.files) {
+      into '/'
     }
+  }
 }
 
 gitPublishPush.dependsOn aggregateJavadocs
