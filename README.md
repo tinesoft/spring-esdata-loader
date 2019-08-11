@@ -2,9 +2,9 @@
 # spring-esdata-loader
 [![Build  Status](https://travis-ci.org/tinesoft/spring-esdata-loader.svg?branch=master)](https://travis-ci.org/tinesoft/spring-esdata-loader)
 
-`spring-esdata-loader` is a Java testing library to help write integration tests for [spring-data elasticsearch](https://spring.io/projects/spring-data-elasticsearch)-based projects, by allowing to easily load data into Elasticsearch, using entity mappings (i.e domain classes annotated with `@Document`, `@Field`, etc) and via a specfic **Junit 4**'s Rule or **JUnit Jupiter**'s Extension.
+`spring-esdata-loader` is a Java testing library to help you write integration tests for your [spring-data elasticsearch](https://spring.io/projects/spring-data-elasticsearch)-based projects, by allowing you to easily load data into Elasticsearch, using entity mappings (i.e domain classes annotated with `@Document`, `@Field`, etc) and via a specific **Junit 4**'s Rule or **JUnit Jupiter**'s Extension.
 
-The library reads all the metadata it needs from the entity class (index name, index type, etc) , uses them to create/refresh the index on the ES server and feeds it with the data using the `ElasticsearchTemplate` present in your test application context.
+The library reads all the metadata it needs from the entity classes (index name, index type, etc) , uses them to create/refresh the index on the ES server and feeds it with the data using the `ElasticsearchTemplate` present in your test application context.
 
 ## Features
 
@@ -24,7 +24,7 @@ The library reads all the metadata it needs from the entity class (index name, i
 
 ## Installation & Usage
 
-The library is splitted into 2 independent sub-modules, both will be available on [Bintray](https://bintray.com/tinesoft/maven), Maven Central (*soon*):
+The library is splitted into 2 independent sub-modules, both will be available on [JCenter](https://bintray.com/bintray/jcenter?filterByPkgName=spring-esdata-loader) and [Maven Central](https://search.maven.org/search?q=spring-esdata-loader):
 
 * `spring-esdata-loader-junit4` for testing with **JUnit 4**
 * `spring-esdata-loader-junit-jupiter` for testing with **JUnit Jupiter**
