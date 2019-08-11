@@ -1,3 +1,6 @@
+apply plugin: "nebula.gradle-git-scm"
+apply plugin: "nebula.dependency-lock"
+
 commitDependencyLock {
   message = 'chore(dependencies): update dependency lock files'
   shouldCreateTag = false

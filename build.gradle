@@ -5,6 +5,7 @@ buildscript {
     }
     dependencies {
       classpath "com.netflix.nebula:gradle-dependency-lock-plugin:7.6.7"
+      classpath "com.netflix.nebula:gradle-git-scm-plugin:4.1.6"
       classpath "com.netflix.nebula:nebula-publishing-plugin:8.1.0"
       classpath "com.netflix.nebula:nebula-release-plugin:11.1.0"
       classpath "com.netflix.nebula:nebula-bintray-plugin:7.3.0"
@@ -14,14 +15,13 @@ buildscript {
 
 
 allprojects {
-    apply plugin: "nebula.release"
-  apply plugin: "nebula.dependency-lock"
+  apply plugin: "nebula.release"
 
-    group = 'com.github.tinesoft'
+  group = 'com.github.tinesoft'
 
-    repositories {
-      jcenter()
-    }
+  repositories {
+    jcenter()
+  }
 }
 
 subprojects { apply plugin: "java" }
