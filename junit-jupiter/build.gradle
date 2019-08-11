@@ -6,5 +6,5 @@ plugins {
 apply from: "$rootDir/gradle/submodule.gradle"
 
 dependencies {
-    api 'org.junit.jupiter:junit-jupiter-api:5.4.2'
+    api 'org.junit.jupiter:junit-jupiter-api:5.+'
 }

@@ -6,11 +6,11 @@ plugins {
 apply from: "$rootDir/gradle/submodule.gradle"
 
 dependencies {
-    implementation 'com.fasterxml.jackson.core:jackson-databind:2.9.9'
-    api 'org.springframework.data:spring-data-elasticsearch:3.1.8.RELEASE'
-	api 'org.springframework:spring-test:5.1.7.RELEASE'
-    api 'org.slf4j:slf4j-api:1.7.26'
+  implementation 'com.fasterxml.jackson.core:jackson-databind:2.9.9'
+  api 'org.springframework.data:spring-data-elasticsearch:3.+'
+  api 'org.springframework:spring-test:5.+'
+  api 'org.slf4j:slf4j-api:1.7.+'
 
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.4.2'
+  testImplementation 'org.junit.jupiter:junit-jupiter-api:5.4.2'
   testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.4.2'
 }
