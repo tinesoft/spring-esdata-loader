@@ -1,0 +1,10 @@
+apply plugin: "nebula.info"
+apply plugin: "nebula.contacts"
+
+contacts {
+  'kondotine@gmail.com' {
+    moniker 'Tine Kondo'
+    github 'tinesoft'
+    roles 'owner'
+  }
+}

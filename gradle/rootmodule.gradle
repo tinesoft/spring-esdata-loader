@@ -1,6 +1,7 @@
 // aggregate of configurations to apply to the root project
 
 apply from: "$rootDir/gradle/credentials.gradle"
+apply from: "$rootDir/gradle/metadata.gradle"
 apply from: "$rootDir/gradle/published.gradle"
 apply from: "$rootDir/gradle/javadoc.gradle"
 apply from: "$rootDir/gradle/ghpages.gradle"

@@ -5,6 +5,8 @@ buildscript {
     }
     dependencies {
       classpath "com.netflix.nebula:gradle-dependency-lock-plugin:7.6.7"
+      classpath "com.netflix.nebula:gradle-info-plugin:5.0.3"
+      classpath "com.netflix.nebula:gradle-contacts-plugin:5.0.3"
       classpath "com.netflix.nebula:gradle-git-scm-plugin:4.1.6"
       classpath "com.netflix.nebula:nebula-publishing-plugin:8.1.0"
       classpath "com.netflix.nebula:nebula-release-plugin:11.1.0"
@@ -12,7 +14,7 @@ buildscript {
       classpath "org.ajoberstar:gradle-git-publish:2.1.1"
     }
 }
-
+description = "Set of JUnit Rule & Extension to easily load data to test your spring-data elasticsearch-based projects"
 
 allprojects {
   apply plugin: "nebula.release"
@@ -27,24 +29,28 @@ allprojects {
 subprojects { apply plugin: "java" }
 
 project(':spring-esdata-loader-junit4') {
-    apply plugin: 'java-library'
-    dependencies {
-        api project(':spring-esdata-loader-core')
-    }
+  apply plugin: 'java-library'
+  dependencies {
+    api project(':spring-esdata-loader-core')
+  }
+  description = "JUnit4 implementation of spring-esdata-loader"
 }
 
 project(':spring-esdata-loader-junit-jupiter') {
-    apply plugin: 'java-library'
-    dependencies {
-        api project(':spring-esdata-loader-core')
-    }
+  apply plugin: 'java-library'
+  dependencies {
+    api project(':spring-esdata-loader-core')
+  }
+  description = "JUnit Jupiter implementation of spring-esdata-loader"
 }
 
 project(':spring-esdata-loader-demo') {
-    apply plugin: 'java'
-    dependencies {
-        implementation project(':spring-esdata-loader-junit4'), project(':spring-esdata-loader-junit-jupiter')
-    }
+  apply plugin: 'java'
+  dependencies {
+    implementation project(':spring-esdata-loader-junit4'), project(':spring-esdata-loader-junit-jupiter')
+  }
+  description = "Demo project for spring-esdata-loader"
+
 }
 
 apply from: "$rootDir/gradle/rootmodule.gradle"
