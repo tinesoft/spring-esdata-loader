@@ -3,7 +3,7 @@ apply plugin: "nebula.nebula-bintray"
 bintray {
   user = project.bintrayUsername ?: "tinesoft"
   apiKey = project.bintrayKey ?: ""
-  
+  syncToMavenCentral = true
   repo = "maven"
   userOrg = "tinesoft"
   description = "Set of JUnit Rule & Extension to easily load data to test your spring-data elasticsearch-based projects"
