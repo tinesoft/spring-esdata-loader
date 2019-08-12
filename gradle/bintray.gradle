@@ -3,6 +3,8 @@ apply plugin: "nebula.nebula-bintray"
 bintray {
   user = project.bintrayUsername ?: "tinesoft"
   apiKey = project.bintrayKey ?: ""
+  sonatypeUsername = project.sonatypeUsername
+  sonatypePassword = project.sonatypePassword
   syncToMavenCentral = true
   repo = "maven"
   userOrg = "tinesoft"
