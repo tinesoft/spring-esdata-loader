@@ -28,12 +28,16 @@ allprojects {
 
 subprojects { apply plugin: "java" }
 
+project(':spring-esdata-loader-core') {
+  description = "Core implementation of spring-esdata-loader"
+}
+
 project(':spring-esdata-loader-junit4') {
   apply plugin: 'java-library'
   dependencies {
     api project(':spring-esdata-loader-core')
   }
-  description = "JUnit4 implementation of spring-esdata-loader"
+  description = "JUnit4 implementation of spring-esdata-loader: testing library to easily load data to test your spring-data-elasticsearch-based projects"
 }
 
 project(':spring-esdata-loader-junit-jupiter') {
@@ -41,7 +45,7 @@ project(':spring-esdata-loader-junit-jupiter') {
   dependencies {
     api project(':spring-esdata-loader-core')
   }
-  description = "JUnit Jupiter implementation of spring-esdata-loader"
+  description = "JUnit Jupiter implementation of spring-esdata-loader: testing library to easily load data to test your spring-data-elasticsearch-based projects"
 }
 
 project(':spring-esdata-loader-demo') {
@@ -49,7 +53,7 @@ project(':spring-esdata-loader-demo') {
   dependencies {
     implementation project(':spring-esdata-loader-junit4'), project(':spring-esdata-loader-junit-jupiter')
   }
-  description = "Demo project for spring-esdata-loader"
+  description = "Demo project for spring-esdata-loader: testing library to easily load data to test your spring-data-elasticsearch-based projects"
 
 }
 
