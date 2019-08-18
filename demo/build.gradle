@@ -10,7 +10,7 @@ ext["junit-jupiter.version"] = "5.5.0"
 dependencies {
 
 	implementation 'org.springframework.boot:spring-boot-starter-data-elasticsearch'
-	
+
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
 	testImplementation 'org.testcontainers:elasticsearch:1.11.3'
@@ -34,4 +34,5 @@ test {
 	testLogging {
 		events 'PASSED', 'FAILED', 'SKIPPED'
 	}
+
 }

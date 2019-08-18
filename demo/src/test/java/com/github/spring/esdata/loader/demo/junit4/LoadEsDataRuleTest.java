@@ -38,16 +38,15 @@ import static org.assertj.core.api.Assertions.assertThat;
 @LoadEsData(esEntityClass = AuthorEsEntity.class, location = "/data/authors.json")//
 @LoadEsData(esEntityClass = BookEsEntity.class, location = "/data/books.json.gz") // built-in support for gzipped files
 
-
-@ContextConfiguration(initializers = LoadEsDataRuleTest.ExposeDockerizedElasticsearchServer.class)
 //(for this test setup only) not required in general
+@ContextConfiguration(initializers = LoadEsDataRuleTest.ExposedDockerizedEsConfiguration.class)
 public class LoadEsDataRuleTest {
 
 	//@ClassRule
 	// helper to easily start a dockerized Elasticsearch server to run our tests against (not required to use this library)
-	public final static ElasticsearchContainer ES_CONTAINER = new ElasticsearchContainer(DemoTestPropertyValues.ES_DOCKER_IMAGE_VERSION);
+  public static final ElasticsearchContainer ES_CONTAINER = new ElasticsearchContainer(DemoTestPropertyValues.ES_DOCKER_IMAGE_VERSION);
 
-	//@ClassRule 
+  //@ClassRule
 	// this rule allows to load data at class level (using @LoadEsData annotations on the test class)
 	public static final LoadEsDataRule ES_DATA_LOADER_RULE = new LoadEsDataRule();
 
@@ -96,10 +95,11 @@ public class LoadEsDataRuleTest {
 		assertThat(libraries).hasSize(5);
 	}
 
-	static class ExposeDockerizedElasticsearchServer implements ApplicationContextInitializer<ConfigurableApplicationContext> {
-		@Override
-		public void initialize(ConfigurableApplicationContext cac) {
-			DemoTestPropertyValues.using(ES_CONTAINER).applyTo(cac.getEnvironment());
-		}
-	}
+  public static class ExposedDockerizedEsConfiguration implements ApplicationContextInitializer<ConfigurableApplicationContext> {
+
+    @Override
+    public void initialize(ConfigurableApplicationContext cac) {
+      DemoTestPropertyValues.using(ES_CONTAINER).applyTo(cac.getEnvironment());
+    }
+  }
 }

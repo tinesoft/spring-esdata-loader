@@ -14,7 +14,7 @@ buildscript {
       classpath "org.ajoberstar:gradle-git-publish:2.1.1"
     }
 }
-description = "Set of JUnit Rule & Extension to easily load data to test your spring-data elasticsearch-based projects"
+description = "Set of JUnit Rules & Extensions to easily load data to test your spring-data elasticsearch-based projects"
 
 allprojects {
   apply plugin: "nebula.release"

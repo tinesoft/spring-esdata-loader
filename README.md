@@ -2,15 +2,15 @@
 # spring-esdata-loader
 [![Build  Status](https://travis-ci.org/tinesoft/spring-esdata-loader.svg?branch=master)](https://travis-ci.org/tinesoft/spring-esdata-loader)
 
-`spring-esdata-loader` is a Java testing library to help you write integration tests for your [spring-data elasticsearch](https://spring.io/projects/spring-data-elasticsearch)-based projects, by allowing you to easily load data into Elasticsearch, using entity mappings (i.e domain classes annotated with `@Document`, `@Field`, etc) and via a specific **Junit 4**'s Rule or **JUnit Jupiter**'s Extension.
+`spring-esdata-loader` is a Java testing library to help you write integration tests for your [spring-data elasticsearch](https://spring.io/projects/spring-data-elasticsearch)-based projects, by allowing you to easily load data into Elasticsearch, using entity mappings (i.e domain classes annotated with `@Document`, `@Field`, etc) and via specific **Junit 4**'s Rules or **JUnit Jupiter**'s Extensions.
 
 The library reads all the metadata it needs from the entity classes (index name, index type, etc) , uses them to create/refresh the index on the ES server and feeds it with the data using the `ElasticsearchTemplate` present in your test application context.
 
 ## Features
 
 * **Simple API** and no configuration required
-* Support  for  **JUnit 4** via `LoadEsDataRule`
-* Support  for  **JUnit  Jupiter** via `@LoadEsDataConfig` or `@LoadEsDataExtension`
+* Support  for  **JUnit 4** via `LoadEsDataRule`, `DeleteEsDataRule`
+* Support  for  **JUnit  Jupiter** via `@LoadEsDataConfig` / `@LoadEsDataExtension` or `@DeleteEsDataConfig` / `@DeleteEsDataExtension`
 * Built-in support for **gzipped data**
 * Written  in  **Java  8**
 * Based on **Spring (Data, Test)**
@@ -43,14 +43,14 @@ To get started,
         <td>JUnit 4</td>
         <td>
 <pre lang="groovy">dependencies {
-    testImplementation 'com.github.spring-esdata-loader:spring-esdata-loader-junit4:1.0.0'
+    testImplementation 'com.github.spring-esdata-loader:spring-esdata-loader-junit4:2.0.0'
 }</pre>
         </td>
         <td>
 <pre lang="xml">&lt;dependency&gt;
     &lt;groupId&gt;com.github.spring-esdata-loader&lt;/groupId&gt;
     &lt;artifactId>spring-esdata-loader-junit4&lt;/artifactId&gt;
-    &lt;version>1.0.0&lt;/version&gt;
+    &lt;version>2.0.0&lt;/version&gt;
     &lt;scope>test&lt;/scope&gt;
 &lt;/dependency&gt;</pre>
         </td>
@@ -59,14 +59,14 @@ To get started,
         <td>JUnit Jupiter</td>
         <td>
 <pre lang="groovy">dependencies {
-    testImplementation 'com.github.spring-esdata-loader:spring-esdata-loader-junit-jupiter:1.0.0'
+    testImplementation 'com.github.spring-esdata-loader:spring-esdata-loader-junit-jupiter:2.0.0'
 }</pre>
         </td>
         <td>
 <pre lang="xml">&lt;dependency&gt;
     &lt;groupId&gt;com.github.spring-esdata-loader&lt;/groupId&gt;
     &lt;artifactId>spring-esdata-loader-junit-jupiter&lt;/artifactId&gt;
-    &lt;version>1.0.0&lt;/version&gt;
+    &lt;version>2.0.0&lt;/version&gt;
     &lt;scope>test&lt;/scope&gt;
 &lt;/dependency&gt;</pre>
         </td>

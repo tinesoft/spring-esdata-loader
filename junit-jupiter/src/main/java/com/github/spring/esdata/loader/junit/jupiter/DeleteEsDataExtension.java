@@ -1,8 +1,7 @@
 package com.github.spring.esdata.loader.junit.jupiter;
 
+import com.github.spring.esdata.loader.core.DeleteEsData;
 import com.github.spring.esdata.loader.core.EsDataLoader;
-import com.github.spring.esdata.loader.core.IndexData;
-import com.github.spring.esdata.loader.core.LoadEsData;
 import org.junit.jupiter.api.extension.*;
 import org.junit.jupiter.api.extension.ExtensionContext.Namespace;
 import org.slf4j.Logger;
@@ -11,22 +10,20 @@ import org.slf4j.LoggerFactory;
 import java.util.Optional;
 import java.util.stream.Stream;
 
-import static org.junit.platform.commons.support.AnnotationSupport.findRepeatableAnnotations;
-
 /**
- * JUnit {@link Extension} to load data into Elasticsearch either before all tests, or before each test.
+ * JUnit {@link Extension} to delete data from Elasticsearch either before all tests, or before each test.
  *
  * @author tinesoft
  */
-public class LoadEsDataExtension extends AbstractEsDataExtension
+public class DeleteEsDataExtension extends AbstractEsDataExtension
   implements TestInstancePostProcessor, BeforeAllCallback, AfterAllCallback, BeforeEachCallback {
 
-  private static final Logger LOGGER = LoggerFactory.getLogger(LoadEsDataExtension.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(DeleteEsDataExtension.class);
 
-  private final static Namespace NAMESPACE = Namespace.create(LoadEsDataExtension.class);
+  private final static Namespace NAMESPACE = Namespace.create(DeleteEsDataExtension.class);
 
   // This constructor is invoked by JUnit Jupiter via reflection or ServiceLoader
-  public LoadEsDataExtension() {
+  public DeleteEsDataExtension() {
     this(null);
   }
 
@@ -35,7 +32,7 @@ public class LoadEsDataExtension extends AbstractEsDataExtension
    *
    * @param loader the loader
    */
-  public LoadEsDataExtension(final EsDataLoader loader) {
+  public DeleteEsDataExtension(final EsDataLoader loader) {
     super(loader);
   }
 
@@ -45,16 +42,15 @@ public class LoadEsDataExtension extends AbstractEsDataExtension
     this.loader = this.getDataLoader(context);
 
     // ES data can be specified either by:
-    // - using one or many @LoadEsData on the test class (in conjunction with @ExtendWith(LoadEsDataExtension.class)
-    // - using the convenient @LoadEsDataConfig that combines the two annotations above
+    // - using one or many @DeleteEsData on the test class (in conjunction with @ExtendWith(DeleteEsDataExtension.class)
+    // - using the convenient @DeleteEsDataConfig that combines the two annotations above
     // - or using both
     Stream.concat(
-      findRepeatableAnnotations(context.getRequiredTestClass(), LoadEsData.class).stream(),
-      findMergedAnnotation(context.getRequiredTestClass(), LoadEsDataConfig.class)
-        .flatMap(c -> Stream.of(c.data())))
-      .map(IndexData::of)//
-      .forEach(d -> this.loader.load(d));
-
+      findMergedAnnotation(context.getRequiredTestClass(), DeleteEsData.class)//
+        .flatMap(d -> Stream.of(d.esEntityClasses())),
+      findMergedAnnotation(context.getRequiredTestClass(), DeleteEsDataConfig.class)//
+        .flatMap(d -> Stream.of(d.esEntityClasses()))
+    ).forEach(c -> this.getDataLoader(context).delete(c));
   }
 
   @Override
@@ -64,10 +60,9 @@ public class LoadEsDataExtension extends AbstractEsDataExtension
 
   @Override
   public void beforeEach(final ExtensionContext context) throws Exception {
-    findRepeatableAnnotations(context.getRequiredTestMethod(), LoadEsData.class)//
-      .stream()//
-      .map(IndexData::of)//
-      .forEach(d -> this.getDataLoader(context).load(d));
+    findMergedAnnotation(context.getRequiredTestMethod(), DeleteEsData.class)//
+      .flatMap(d -> Stream.of(d.esEntityClasses()))//
+      .forEach(c -> this.getDataLoader(context).delete(c));
   }
 
   /**
@@ -93,5 +88,4 @@ public class LoadEsDataExtension extends AbstractEsDataExtension
   protected Namespace getNamespace() {
     return NAMESPACE;
   }
-
 }

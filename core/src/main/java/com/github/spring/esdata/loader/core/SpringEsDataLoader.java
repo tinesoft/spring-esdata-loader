@@ -22,7 +22,7 @@ import java.util.zip.GZIPInputStream;
  * @author tinesoft
  *
  */
-public class SpringEsDataLoader {
+public class SpringEsDataLoader implements EsDataLoader {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(SpringEsDataLoader.class);
 	private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
@@ -38,14 +38,30 @@ public class SpringEsDataLoader {
 		this.esTemplate = esTemplate;
 	}
 
-    /**
-     * Loads given data into ElasticSearch. Target indices are dropped and recreated before data are inserted in bulk.
-	 * @param d the data to load
+  /**
+   * Deletes data from Elasticsearch using provided class to retrieve related index.
+   *
+   * @param esEntityClass the data to load
+   */
+  @Override
+  public void delete(Class<?> esEntityClass) {
+    LOGGER.debug("Dropping data in Index '{}'...", esEntityClass.getSimpleName());
+    this.esTemplate.deleteIndex(esEntityClass);
+    this.esTemplate.createIndex(esEntityClass);
+    this.esTemplate.putMapping(esEntityClass);
+    this.esTemplate.refresh(esEntityClass);
+
+  }
+
+  /**
+   * Loads given data into Elasticsearch. Target indices are dropped and recreated before data are inserted in bulk.
+   * @param d the data to load
      */
-	public void load(final IndexData d) {
+  @Override
+  public void load(final IndexData d) {
 
 		// first recreate the index
-		LOGGER.info("Recreating Index for '{}'...", d.getEsEntityClass().getSimpleName());
+    LOGGER.debug("Recreating Index for '{}'...", d.getEsEntityClass().getSimpleName());
 		this.esTemplate.deleteIndex(d.esEntityClass);
 		this.esTemplate.createIndex(d.esEntityClass);
 		this.esTemplate.putMapping(d.esEntityClass);

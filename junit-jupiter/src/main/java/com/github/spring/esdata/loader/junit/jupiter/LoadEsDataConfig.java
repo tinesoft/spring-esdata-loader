@@ -36,14 +36,14 @@ public @interface LoadEsDataConfig {
 
 	/**
 	 * Alias for {@link LoadEsDataConfig#data}.
-	 * @return the data
+   * @return the data to load
 	 */
 	@AliasFor("data")
 	LoadEsData[] value() default {};
 
 	/**
 	 * Alias for {@link LoadEsDataConfig#value}.
-	 * @return the data
+   * @return the data to load
 	 */
 	@AliasFor("value")
 	LoadEsData[] data() default {};
