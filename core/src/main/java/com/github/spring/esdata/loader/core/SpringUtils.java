@@ -6,7 +6,6 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
 
 import java.util.Map;
-import java.util.function.Consumer;
 
 /**
  * Utility class to interact with Spring.
@@ -44,12 +43,13 @@ public final class SpringUtils {
 		return null;
 	}
 
-    /**
-     * Retrieve a {@link ElasticsearchTemplate} from the {@link ApplicationContext} and creates a data loader from it.
-	 * @param appContext the Spring {@link ApplicationContext}
-	 * @return a {@link Consumer} that accepts one or more {@link IndexData} objects and inserts them in the underlying ES Server.
-     */
-	public static Consumer<IndexData> getDataLoader(final ApplicationContext appContext) {
+  /**
+   * Retrieve a {@link ElasticsearchTemplate} from the {@link ApplicationContext} and creates a {@link EsDataLoader} from it.
+   *
+   * @param appContext the Spring {@link ApplicationContext}
+   * @return a {@link EsDataLoader} that can insert or remove data from the underlying ES Server.
+   */
+  public static EsDataLoader getDataLoader(final ApplicationContext appContext) {
 
 		if (appContext == null) {
 			LOGGER.error(
@@ -63,9 +63,9 @@ public final class SpringUtils {
 			LOGGER.error("No Spring's bean of type 'ElasticsearchTemplate' was found!");
 			throw new IllegalStateException(
 					"Missing bean of type 'ElasticsearchTemplate' in your Spring configuration");
-		}
+    }
 
-		return new SpringEsDataLoader(esTemplate)::load;
+    return new SpringEsDataLoader(esTemplate);
 	}
 
 }

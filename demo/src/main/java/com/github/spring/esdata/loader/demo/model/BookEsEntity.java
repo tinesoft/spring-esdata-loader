@@ -33,7 +33,7 @@ public class BookEsEntity {
 	}
 
 	public String getId() {
-		return id;
+		return this.id;
 	}
 
 	public void setId(String id) {
@@ -41,7 +41,7 @@ public class BookEsEntity {
 	}
 
 	public String getIsbn() {
-		return isbn;
+		return this.isbn;
 	}
 
 	public void setIsbn(final String isbn) {
@@ -49,7 +49,7 @@ public class BookEsEntity {
 	}
 
 	public String getTitle() {
-		return title;
+		return this.title;
 	}
 
 	public void setTitle(final String title) {
@@ -57,7 +57,7 @@ public class BookEsEntity {
 	}
 
 	public AuthorEsEntity getAuthor() {
-		return author;
+		return this.author;
 	}
 
 	public void setAuthor(final AuthorEsEntity author) {
@@ -67,13 +67,13 @@ public class BookEsEntity {
 	@Override
 	public boolean equals(Object o) {
 		if (this == o) return true;
-		if (o == null || getClass() != o.getClass()) return false;
-		BookEsEntity that = (BookEsEntity) o;
-		return id.equals(that.id);
+		if (o == null || this.getClass() != o.getClass()) return false;
+    BookEsEntity that = (BookEsEntity) o;
+		return this.id.equals(that.id);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id);
+		return Objects.hash(this.id);
 	}
 }

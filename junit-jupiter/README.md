@@ -3,7 +3,7 @@
 **JUnit Jupiter** implementation of the library.
 
 The sub-module is all that is needed to start using the library with the brand new **JUnit Jupiter**. 
-It defines an `Extension` named `LoadEsDataExtention` that can be used to insert data into Elasticsearch,
+It defines `Extension`s named `LoadEsDataExtention` (resp. `DeleteEsDataExtension`) that can be used to insert data into (resp. remove data from) Elasticsearch,
 before all tests are run (class level), or just before a specific test is run (method level).
 
 Here is an example:
@@ -36,3 +36,36 @@ public class MyJunitJupiterTestClass{
 
 A full example can be seen in demo project:
 *  [LoadEsDataExtensionTest.java](/demo/src/test/java/com/github/spring/esdata/loader/demo/junit/jupiter/LoadEsDataExtensionTest.java)
+
+Similarly, you can use `DeleteEsDataExtension` to remove data from Elasticsearch indices
+
+Here is an example:
+
+```java
+import com.github.spring.esdata.loader.core.LoadEsData;
+import com.github.spring.esdata.loader.junit.jupiter.LoadEsDataConfig;
+import org.junit.jupiter.api.Test;
+
+//@SpringBootTest or any @ContextConfiguration(..) to initialize the Spring context that contains the ElasticsearchTemplate
+
+@DeleteEsDataConfig({ // @DeleteEsDataConfig is a meta annotation that is itself annotated with @ExtendWith(LoadEsDataExtension.class)
+   MyEsEntity1.class,
+   MyEsEntity2.class
+})
+public class MyJunitJupiterTestClass{
+
+    public void testThatUsesEsDataRemovedAtClassLevel()
+    {
+        // make your assertions here
+    }
+
+    @DeleteEsDataConfig(esEntityClasses={MyEsEntity3.class})
+    public void testThatUsesEsDataRemovedAtClassLevelAndAtThisMethodLevel()
+    {
+        // make your assertions here
+    }
+}
+```
+
+A full example can be seen in demo project:
+*  [DeleteEsDataExtensionTest.java](/demo/src/test/java/com/github/spring/esdata/loader/demo/junit/jupiter/DeleteEsDataExtensionTest.java)

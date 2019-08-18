@@ -1,5 +1,6 @@
 package com.github.spring.esdata.loader.junit4;
 
+import com.github.spring.esdata.loader.core.EsDataLoader;
 import com.github.spring.esdata.loader.core.IndexData;
 import com.github.spring.esdata.loader.core.LoadEsData;
 import com.github.spring.esdata.loader.core.SpringUtils;
@@ -13,11 +14,8 @@ import org.springframework.test.context.TestContextManager;
 import org.springframework.util.Assert;
 
 import java.lang.reflect.Method;
-import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.function.Consumer;
-import java.util.stream.Collectors;
 
 import static org.springframework.core.annotation.AnnotatedElementUtils.findMergedRepeatableAnnotations;
 
@@ -30,7 +28,7 @@ public class LoadEsDataRule implements JunitJupiterExtensionLikeTestRule {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(LoadEsDataRule.class);
 
-	private Consumer<IndexData> loader;
+  private EsDataLoader loader;
 
 	/**
 	 * Cache of {@code TestContextManagers} keyed by test class.
@@ -48,9 +46,9 @@ public class LoadEsDataRule implements JunitJupiterExtensionLikeTestRule {
 	/**
 	 * Constructor using the given loader.
 	 * @param loader
-	 *            the code that will actually load the data into Elasticsearch
+   *            the loader
 	 */
-	public LoadEsDataRule(final Consumer<IndexData> loader) {
+  public LoadEsDataRule(final EsDataLoader loader) {
 		this.loader = loader;
 	}
 
@@ -58,13 +56,10 @@ public class LoadEsDataRule implements JunitJupiterExtensionLikeTestRule {
 	public void beforeAll(Statement base, Description description) throws Exception {
 		this.loader = SpringUtils.getDataLoader(getApplicationContext(description.getTestClass()));
 
-		List<IndexData> classData = findMergedRepeatableAnnotations(description.getTestClass(), LoadEsData.class)
-				.stream()
-				.map(IndexData::of)//
-				.collect(Collectors.toList());
-
-		for (IndexData d : classData)
-			this.loader.accept(d);
+    findMergedRepeatableAnnotations(description.getTestClass(), LoadEsData.class)
+      .stream()
+      .map(IndexData::of)//
+      .forEach(d -> this.loader.load(d));
 	}
 
 	@Override
@@ -73,13 +68,10 @@ public class LoadEsDataRule implements JunitJupiterExtensionLikeTestRule {
 
 		Method testMethod = description.getTestClass().getDeclaredMethod(description.getMethodName());
 
-		List<IndexData> methodData = findMergedRepeatableAnnotations(testMethod, LoadEsData.class)
-				.stream()//
-				.map(IndexData::of)//
-				.collect(Collectors.toList());
-
-		for (IndexData d : methodData)
-			this.loader.accept(d);
+    findMergedRepeatableAnnotations(testMethod, LoadEsData.class)
+      .stream()//
+      .map(IndexData::of)//
+      .forEach(d -> this.loader.load(d));
 	}
 
 	@Override
@@ -87,8 +79,7 @@ public class LoadEsDataRule implements JunitJupiterExtensionLikeTestRule {
 		testContextManagerCache.remove(description.getTestClass());
 	}
 
-
-	private static ApplicationContext getApplicationContext(Class<?> testClass) {
+  private static ApplicationContext getApplicationContext(Class<?> testClass) {
 		TestContextManager testContextManager = getTestContextManager(testClass);
 		return testContextManager.getTestContext().getApplicationContext();
 	}
