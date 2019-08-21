@@ -1,0 +1,12 @@
+apply plugin: "changelog"
+
+changelog {
+  file "CHANGELOG.md"
+  appName "${rootProject.name}"
+  versionNum "v${rootProject.version}"
+  repoUrl "https://github.com/tinesoft/spring-esdata-loader"
+  trackerUrl "ttps://github.com/tinesoft/spring-esdata-loader"
+
+  //lower limit to filter the git log command
+  from "v0.1.0"
+}
