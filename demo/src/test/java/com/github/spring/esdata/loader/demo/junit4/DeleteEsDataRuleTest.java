@@ -19,7 +19,7 @@ import org.springframework.boot.test.mock.mockito.MockReset;
 import org.springframework.boot.test.mock.mockito.SpyBean;
 import org.springframework.context.ApplicationContextInitializer;
 import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
+import org.springframework.data.elasticsearch.core.ElasticsearchOperations;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.testcontainers.elasticsearch.ElasticsearchContainer;
@@ -62,14 +62,14 @@ public class DeleteEsDataRuleTest {
   public final static TestRule RUlE = RuleChain.outerRule(ES_CONTAINER).around(ES_DATA_REMOVER_RULE);
 
   @SpyBean(reset = MockReset.NONE)
-  private ElasticsearchTemplate esMockTemplate;
+  private ElasticsearchOperations esMockOperations;
 
   @Test
   public void dataDeletedAtClassLevel() {
 
-    verify(this.esMockTemplate).deleteIndex(AuthorEsEntity.class);
-    verify(this.esMockTemplate).deleteIndex(BookEsEntity.class);
-    verify(this.esMockTemplate, never()).deleteIndex(LibraryEsEntity.class);//removed at method level, see below #dataDeleteedAtMethodLevel()
+    verify(this.esMockOperations).deleteIndex(AuthorEsEntity.class);
+    verify(this.esMockOperations).deleteIndex(BookEsEntity.class);
+    verify(this.esMockOperations, never()).deleteIndex(LibraryEsEntity.class);//removed at method level, see below #dataDeleteedAtMethodLevel()
   }
 
   @Test
@@ -77,9 +77,9 @@ public class DeleteEsDataRuleTest {
   @DeleteEsData(esEntityClasses = {LibraryEsEntity.class})
   public void dataDeletedAtMethodLevel() {
 
-    verify(this.esMockTemplate).deleteIndex(AuthorEsEntity.class);//removed at class level, before all tests
-    verify(this.esMockTemplate).deleteIndex(BookEsEntity.class);//removed at class level, before all tests
-    verify(this.esMockTemplate).deleteIndex(LibraryEsEntity.class);
+    verify(this.esMockOperations).deleteIndex(AuthorEsEntity.class);//removed at class level, before all tests
+    verify(this.esMockOperations).deleteIndex(BookEsEntity.class);//removed at class level, before all tests
+    verify(this.esMockOperations).deleteIndex(LibraryEsEntity.class);
   }
 
   public static class ExposedDockerizedEsConfiguration implements ApplicationContextInitializer<ConfigurableApplicationContext> {

@@ -4,7 +4,7 @@
 
 `spring-esdata-loader` is a Java testing library to help you write integration tests for your [spring-data elasticsearch](https://spring.io/projects/spring-data-elasticsearch)-based projects, by allowing you to easily load data into Elasticsearch, using entity mappings (i.e domain classes annotated with `@Document`, `@Field`, etc) and via specific **Junit 4**'s Rules or **JUnit Jupiter**'s Extensions.
 
-The library reads all the metadata it needs from the entity classes (index name, index type, etc) , uses them to create/refresh the index on the ES server and feeds it with the data using the `ElasticsearchTemplate` present in your test application context.
+The library reads all the metadata it needs from the entity classes (index name, index type, etc) , uses them to create/refresh the index on the ES server and feeds it with the data using the `ElasticsearchOperations` present in your test application context.
 
 ## Features
 

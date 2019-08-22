@@ -17,7 +17,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 @RunWith(SpringRunner.class) // required to run JUnit 4 tests with Spring magic
-//@SpringBootTest or any @ContextConfiguration(..) to initialize the Spring context that contains the ElasticsearchTemplate
+//@SpringBootTest or any @ContextConfiguration(..) to initialize the Spring context that contains the ElasticsearchOperations
 
 @LoadEsData(esEntityClass=MyEsEntity1.class, location="/path/to/data1.json")
 @LoadEsData(esEntityClass=MyEsEntity2.class, location="/path/to/data2.json")
@@ -60,7 +60,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 @RunWith(SpringRunner.class) // required to run JUnit 4 tests with Spring magic
-//@SpringBootTest or any @ContextConfiguration(..) to initialize the Spring context that contains the ElasticsearchTemplate
+//@SpringBootTest or any @ContextConfiguration(..) to initialize the Spring context that contains the ElasticsearchOperations
 
 @DeleteEsData({MyEsEntity1.class, MyEsEntity2.class})
 public class MyJunit4TestClass{

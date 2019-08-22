@@ -5,7 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
+import org.springframework.data.elasticsearch.core.ElasticsearchOperations;
 import org.springframework.data.elasticsearch.core.mapping.ElasticsearchPersistentEntity;
 import org.springframework.data.elasticsearch.core.query.IndexQuery;
 import org.springframework.data.elasticsearch.core.query.IndexQueryBuilder;
@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 import java.util.zip.GZIPInputStream;
 
 /**
- * Loader that use Spring Data's {@link ElasticsearchTemplate} to load data into Elasticsearch.
+ * Loader that use Spring Data's {@link ElasticsearchOperations} to load data into Elasticsearch.
  *
  * @author tinesoft
  *
@@ -27,15 +27,15 @@ public class SpringEsDataLoader implements EsDataLoader {
 	private static final Logger LOGGER = LoggerFactory.getLogger(SpringEsDataLoader.class);
 	private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
 
-	private final ElasticsearchTemplate esTemplate;
+	private final ElasticsearchOperations esOperations;
 
 	/**.
-	 * Data loader that use Spring's {@link ElasticsearchTemplate} to load data into Elasticsearch
-	 * @param esTemplate the {@link ElasticsearchTemplate}
+	 * Data loader that use Spring's {@link ElasticsearchOperations} to load data into Elasticsearch
+	 * @param esOperations the {@link ElasticsearchOperations}
 	 */
 	@Autowired
-	public SpringEsDataLoader(final ElasticsearchTemplate esTemplate) {
-		this.esTemplate = esTemplate;
+	public SpringEsDataLoader(final ElasticsearchOperations esOperations) {
+		this.esOperations = esOperations;
 	}
 
   /**
@@ -46,10 +46,10 @@ public class SpringEsDataLoader implements EsDataLoader {
   @Override
   public void delete(Class<?> esEntityClass) {
     LOGGER.debug("Dropping data in Index '{}'...", esEntityClass.getSimpleName());
-    this.esTemplate.deleteIndex(esEntityClass);
-    this.esTemplate.createIndex(esEntityClass);
-    this.esTemplate.putMapping(esEntityClass);
-    this.esTemplate.refresh(esEntityClass);
+    this.esOperations.deleteIndex(esEntityClass);
+    this.esOperations.createIndex(esEntityClass);
+    this.esOperations.putMapping(esEntityClass);
+    this.esOperations.refresh(esEntityClass);
 
   }
 
@@ -62,12 +62,12 @@ public class SpringEsDataLoader implements EsDataLoader {
 
 		// first recreate the index
     LOGGER.debug("Recreating Index for '{}'...", d.getEsEntityClass().getSimpleName());
-		this.esTemplate.deleteIndex(d.esEntityClass);
-		this.esTemplate.createIndex(d.esEntityClass);
-		this.esTemplate.putMapping(d.esEntityClass);
-		this.esTemplate.refresh(d.esEntityClass);
+		this.esOperations.deleteIndex(d.esEntityClass);
+		this.esOperations.createIndex(d.esEntityClass);
+		this.esOperations.putMapping(d.esEntityClass);
+		this.esOperations.refresh(d.esEntityClass);
 
-		ElasticsearchPersistentEntity<?> esEntityInfo = this.esTemplate.getPersistentEntityFor(d.esEntityClass);
+		ElasticsearchPersistentEntity<?> esEntityInfo = this.esOperations.getPersistentEntityFor(d.esEntityClass);
 
 		LOGGER.debug("Inserting data in Index of '{}'. Please wait...", d.getEsEntityClass().getSimpleName());
 
@@ -84,8 +84,8 @@ public class SpringEsDataLoader implements EsDataLoader {
 					.limit(d.nbMaxItems)//
 					.collect(Collectors.toList());
 
-			this.esTemplate.bulkIndex(indexQueries);
-			this.esTemplate.refresh(d.esEntityClass);
+			this.esOperations.bulkIndex(indexQueries);
+			this.esOperations.refresh(d.esEntityClass);
 
 			LOGGER.debug("Insertion successfully done");
 		} catch (IOException e) {

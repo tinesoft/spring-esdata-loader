@@ -3,7 +3,7 @@ package com.github.spring.esdata.loader.core;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
-import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
+import org.springframework.data.elasticsearch.core.ElasticsearchOperations;
 
 import java.util.Map;
 
@@ -44,7 +44,7 @@ public final class SpringUtils {
 	}
 
   /**
-   * Retrieve a {@link ElasticsearchTemplate} from the {@link ApplicationContext} and creates a {@link EsDataLoader} from it.
+   * Retrieve a {@link ElasticsearchOperations} from the {@link ApplicationContext} and creates a {@link EsDataLoader} from it.
    *
    * @param appContext the Spring {@link ApplicationContext}
    * @return a {@link EsDataLoader} that can insert or remove data from the underlying ES Server.
@@ -57,15 +57,15 @@ public final class SpringUtils {
 			throw new IllegalStateException("Missing 'ApplicationContext' field in class under test");
 		}
 
-		ElasticsearchTemplate esTemplate = SpringUtils.getBeanOfType(appContext, ElasticsearchTemplate.class);
+		ElasticsearchOperations esOperations = SpringUtils.getBeanOfType(appContext, ElasticsearchOperations.class);
 
-		if (esTemplate == null) {
-			LOGGER.error("No Spring's bean of type 'ElasticsearchTemplate' was found!");
+		if (esOperations == null) {
+			LOGGER.error("No Spring's bean of type 'ElasticsearchOperations' was found!");
 			throw new IllegalStateException(
-					"Missing bean of type 'ElasticsearchTemplate' in your Spring configuration");
+					"Missing bean of type 'ElasticsearchOperations' in your Spring configuration");
     }
 
-    return new SpringEsDataLoader(esTemplate);
+    return new SpringEsDataLoader(esOperations);
 	}
 
 }
