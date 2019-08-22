@@ -13,7 +13,7 @@ import com.github.spring.esdata.loader.core.LoadEsData;
 import com.github.spring.esdata.loader.junit.jupiter.LoadEsDataConfig;
 import org.junit.jupiter.api.Test;
 
-//@SpringBootTest or any @ContextConfiguration(..) to initialize the Spring context that contains the ElasticsearchTemplate
+//@SpringBootTest or any @ContextConfiguration(..) to initialize the Spring context that contains the ElasticsearchOperations
 
 @LoadEsDataConfig({ // @LoadEsDataConfig is a meta annotation that is itself annotated with @ExtendWith(LoadEsDataExtension.class)
     @LoadEsData(esEntityClass=MyEsEntity1.class, location="/path/to/data1.json"),
@@ -46,7 +46,7 @@ import com.github.spring.esdata.loader.core.LoadEsData;
 import com.github.spring.esdata.loader.junit.jupiter.LoadEsDataConfig;
 import org.junit.jupiter.api.Test;
 
-//@SpringBootTest or any @ContextConfiguration(..) to initialize the Spring context that contains the ElasticsearchTemplate
+//@SpringBootTest or any @ContextConfiguration(..) to initialize the Spring context that contains the ElasticsearchOperations
 
 @DeleteEsDataConfig({ // @DeleteEsDataConfig is a meta annotation that is itself annotated with @ExtendWith(LoadEsDataExtension.class)
    MyEsEntity1.class,
