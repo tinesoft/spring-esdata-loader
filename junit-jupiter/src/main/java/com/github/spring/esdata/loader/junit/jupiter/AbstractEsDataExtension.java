@@ -38,9 +38,8 @@ public abstract class AbstractEsDataExtension {
   }
 
   /**
-   * Get the {@link TestContextManager} associated with the supplied
-   * {@code ExtensionContext}.
-   *
+   * Get the {@link TestContextManager} associated with the supplied {@code ExtensionContext}.
+   * @param context the {@code ExtensionContext}
    * @return the {@code TestContextManager} (never {@code null})
    */
   protected TestContextManager getTestContextManager(final ExtensionContext context) {
@@ -51,9 +50,8 @@ public abstract class AbstractEsDataExtension {
   }
 
   /**
-   * Get the {@link EsDataLoader} associated with the supplied
-   * {@code ExtensionContext}.
-   *
+   * Get the {@link EsDataLoader} associated with the supplied {@code ExtensionContext}.
+   * @param context the {@code ExtensionContext}
    * @return the {@link EsDataLoader} (never {@code null})
    */
   protected EsDataLoader getDataLoader(final ExtensionContext context) {
