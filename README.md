@@ -110,7 +110,7 @@ $ npx elasticdump --input=http://localhost:9200/my_index --output=my_index_data.
 ## Contributing
 
 Contributions are always welcome! Just fork the project, work on your feature/bug fix, and submit it.
-You can also contribute by creating issues.
+You can also contribute by creating issues. Please read the [contribution guidelines](.github/CONTRIBUTING.md) for more information.
 
 ## License
 
