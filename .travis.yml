@@ -1,6 +1,7 @@
 language: java
 sudo: false
-install: true
+install:
+  - echo "skip default gradlew assemble"
 script: "./buildViaTravis.sh"
 jdk:
 - openjdk8
@@ -21,3 +22,6 @@ cache:
   directories:
   - "$HOME/.gradle/caches/"
   - "$HOME/.gradle/wrapper/"
+branches:
+  except:
+    - /^v\d+\.\d+\.\d+$/
