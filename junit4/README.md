@@ -1,5 +1,8 @@
 # spring-esdata-loader-junit4
 
+[![Maven Central](https://img.shields.io/maven-central/v/com.github.tinesoft/spring-esdata-loader-junit4)](https://search.maven.org/artifact/com.github.tinesoft/spring-esdata-loader-junit4/?/jar)
+[![JCenter](https://img.shields.io/bintray/v/tinesoft/maven/spring-esdata-loader-junit4)](https://bintray.com/tinesoft/maven/spring-esdata-loader-junit4/_latestVersion)
+
 **JUnit 4** implementation of the library.
 
 This sub-module is that is needed to start using the library with **JUnit 4**.

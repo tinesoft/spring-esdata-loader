@@ -2,6 +2,7 @@
 # spring-esdata-loader
 [![Build  Status](https://travis-ci.org/tinesoft/spring-esdata-loader.svg?branch=master)](https://travis-ci.org/tinesoft/spring-esdata-loader)
 [![codebeat badge](https://codebeat.co/badges/3c8b3893-a79e-4e3d-b769-a9285c771be2)](https://codebeat.co/projects/github-com-tinesoft-spring-esdata-loader-master)
+![GitHub](https://img.shields.io/github/license/tinesoft/spring-esdata-loader)
 
 `spring-esdata-loader` is a Java testing library to help you write integration tests for your [spring-data elasticsearch](https://spring.io/projects/spring-data-elasticsearch)-based projects, by allowing you to easily load data into Elasticsearch, using entity mappings (i.e domain classes annotated with `@Document`, `@Field`, etc) and via specific **Junit 4**'s Rules or **JUnit Jupiter**'s Extensions.
 
@@ -25,7 +26,7 @@ The library reads all the metadata it needs from the entity classes (index name,
 
 ## Installation & Usage
 
-The library is splitted into 2 independent sub-modules, both will be available on [JCenter](https://bintray.com/bintray/jcenter?filterByPkgName=spring-esdata-loader) and [Maven Central](https://search.maven.org/search?q=spring-esdata-loader):
+The library is splitted into 2 independent sub-modules, both are available on [JCenter](https://bintray.com/bintray/jcenter?filterByPkgName=spring-esdata-loader) and [Maven Central](https://search.maven.org/search?q=spring-esdata-loader):
 
 * `spring-esdata-loader-junit4` for testing with **JUnit 4**
 * `spring-esdata-loader-junit-jupiter` for testing with **JUnit Jupiter**
