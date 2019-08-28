@@ -1,3 +1,6 @@
+import static de.maltsev.gradle.semanticrelease.project.ExtKt.hasNewSemanticVersion
+import static de.maltsev.gradle.semanticrelease.project.ExtKt.isOnTargetBranch
+
 apply plugin: 'org.ajoberstar.git-publish'
 
 gitPublish {
@@ -12,3 +15,9 @@ gitPublish {
 }
 
 gitPublishPush.dependsOn aggregateJavadocs
+
+tasks {
+  "gitPublishPush" {
+    onlyIf { hasNewSemanticVersion(project.rootProject) && isOnTargetBranch(project.rootProject) }
+  }
+}

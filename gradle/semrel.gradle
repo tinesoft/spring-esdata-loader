@@ -1,0 +1,7 @@
+import de.maltsev.gradle.semanticrelease.versions.VersionChangeGroup
+
+apply plugin: "de.maltsev.gradle.semanticrelease"
+
+semanticRelease {
+  releaseChanges = [VersionChangeGroup.MAJOR, VersionChangeGroup.MINOR, VersionChangeGroup.PATCH]
+}

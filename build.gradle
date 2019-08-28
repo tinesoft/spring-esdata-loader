@@ -1,25 +1,30 @@
-buildscript {
-    repositories {
-        jcenter()
-        maven { url "https://plugins.gradle.org/m2/" }
-    }
-    dependencies {
-      classpath "com.netflix.nebula:gradle-dependency-lock-plugin:7.6.7"
-      classpath "com.netflix.nebula:gradle-info-plugin:5.0.3"
-      classpath "com.netflix.nebula:gradle-contacts-plugin:5.0.3"
-      classpath "com.netflix.nebula:gradle-git-scm-plugin:4.1.6"
-      classpath "com.netflix.nebula:nebula-publishing-plugin:8.1.0"
-      classpath "de.maltsev:gradle-semantic-release-plugin:0.3.4"
-      classpath "com.netflix.nebula:nebula-bintray-plugin:7.3.0"
-      classpath "org.ajoberstar:gradle-git-publish:2.1.1"
-    }
+
+plugins {
+  id "java"
+  id "com.gradle.build-scan" version "2.4.2"
+
+  id "nebula.dependency-lock" version "8.0.0" apply false
+  id "nebula.info-dependencies" version "5.1.0" apply false
+  id "nebula.contacts" version "5.1.0" apply false
+  id "nebula.maven-publish" version "13.6.1" apply false
+  id "nebula.javadoc-jar" version "13.6.1" apply false
+  id "nebula.source-jar" version "13.6.1" apply false
+  id "nebula.gradle-git-scm" version "4.1.6" apply false
+  id "nebula.nebula-bintray" version "7.3.1" apply false
+  id "org.ajoberstar.git-publish" version "2.1.1" apply false
+  id "de.maltsev.gradle.semanticrelease" apply false
 }
+
 description = "Set of JUnit Rules & Extensions to easily load data to test your spring-data elasticsearch-based projects"
 
-allprojects {
-  apply plugin: "de.maltsev.gradle.semanticrelease"
-  group = 'com.github.tinesoft'
+buildScan {
+  termsOfServiceUrl = 'https://gradle.com/terms-of-service'
+  termsOfServiceAgree = 'yes'
+}
 
+allprojects {
+  apply plugin: 'nebula.publish-verification'
+  group = "com.github.tinesoft"
   repositories {
     jcenter()
   }
@@ -27,34 +32,32 @@ allprojects {
 
 subprojects { apply plugin: "java" }
 
-project(':spring-esdata-loader-core') {
+project(":spring-esdata-loader-core") {
   description = "Core implementation of spring-esdata-loader: a library to easily load data to test your spring-data-elasticsearch-based projects"
 }
 
-project(':spring-esdata-loader-junit4') {
-  apply plugin: 'java-library'
+project(":spring-esdata-loader-junit4") {
+  apply plugin: "java-library"
   dependencies {
-    api project(':spring-esdata-loader-core')
+    api project(":spring-esdata-loader-core")
   }
   description = "JUnit4 implementation of spring-esdata-loader: a library to easily load data to test your spring-data-elasticsearch-based projects"
 }
 
-project(':spring-esdata-loader-junit-jupiter') {
-  apply plugin: 'java-library'
+project(":spring-esdata-loader-junit-jupiter") {
+  apply plugin: "java-library"
   dependencies {
-    api project(':spring-esdata-loader-core')
+    api project(":spring-esdata-loader-core")
   }
   description = "JUnit Jupiter implementation of spring-esdata-loader: a library to easily load data to test your spring-data-elasticsearch-based projects"
 }
 
-project(':spring-esdata-loader-demo') {
-  apply plugin: 'java'
+project(":spring-esdata-loader-demo") {
+  apply plugin: "java"
   dependencies {
-    implementation project(':spring-esdata-loader-junit4'), project(':spring-esdata-loader-junit-jupiter')
+    implementation project(":spring-esdata-loader-junit4"), project(":spring-esdata-loader-junit-jupiter")
   }
   description = "Demo project for spring-esdata-loader: a library to easily load data to test your spring-data-elasticsearch-based projects"
-
 }
 
 apply from: "$rootDir/gradle/rootmodule.gradle"
-

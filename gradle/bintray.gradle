@@ -1,3 +1,6 @@
+import static de.maltsev.gradle.semanticrelease.project.ExtKt.hasNewSemanticVersion
+import static de.maltsev.gradle.semanticrelease.project.ExtKt.isOnTargetBranch
+
 apply plugin: "nebula.nebula-bintray"
 
 bintray {
@@ -16,3 +19,8 @@ bintray {
   labels = ["spring-data-elasticsearch", "elasticsearch", "junit4", "junit-jupiter", "testing", "testing", "integration-test"]
 }
 
+tasks {
+  "publish" {
+    onlyIf { hasNewSemanticVersion(project) && isOnTargetBranch(project) }
+  }
+}

@@ -1,0 +1,9 @@
+repositories {
+  mavenCentral()
+  jcenter()
+  gradlePluginPortal()
+}
+
+dependencies {
+  implementation("de.maltsev:gradle-semantic-release-plugin:1.1.0")
+}

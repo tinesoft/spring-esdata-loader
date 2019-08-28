@@ -1,3 +1,10 @@
+pluginManagement {
+  repositories {
+    gradlePluginPortal()
+    jcenter()
+  }
+}
+
 include 'core', 'demo', 'junit4', 'junit-jupiter'
 
 rootProject.name = 'spring-esdata-loader'
