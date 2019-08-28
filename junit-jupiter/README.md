@@ -1,7 +1,7 @@
 # spring-esdata-loader-junit-jupiter
 
 [![Maven Central](https://img.shields.io/maven-central/v/com.github.tinesoft/spring-esdata-loader-junit-jupiter)](https://search.maven.org/artifact/com.github.tinesoft/spring-esdata-loader-junit-jupiter/?/jar)
-[![JCenter](https://img.shields.io/bintray/v/tinesoft/maven/spring-esdata-loader-junit-jupiter)](https:/@/bintray.com/tinesoft/maven/spring-esdata-loader-junit-jupiter/_latestVersion)
+[![JCenter](https://img.shields.io/bintray/v/tinesoft/maven/spring-esdata-loader-junit-jupiter)](https://bintray.com/tinesoft/maven/spring-esdata-loader-junit-jupiter/_latestVersion)
 
 **JUnit Jupiter** implementation of the library.
 
