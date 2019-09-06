@@ -1,10 +1,6 @@
 package com.github.spring.esdata.loader.core;
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Repeatable;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+import java.lang.annotation.*;
 
 /**
  * {@code @LoadEsData} is a {@linkplain Repeatable repeatable} annotation
@@ -45,5 +41,12 @@ public @interface LoadEsData {
 	 * @return number of items to skip
 	 */
 	long nbSkipItems() default 0;
+
+  /**
+   * Format of the data to load. If unspecified the library will try to guess the right format from the content of file at {@link #location()}.
+   *
+   * @return format of the data to load
+   */
+  EsDataFormat format() default EsDataFormat.UNKNOWN;
 
 }
