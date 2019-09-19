@@ -13,14 +13,14 @@ IF YOU DON'T FILL OUT THE FOLLOWING INFORMATION YOUR ISSUE MIGHT BE CLOSED WITHO
 - or `spring`, 'spring-test`, and `spring-data-elasticsearch` versions:
 ```
 
-### OS Version?
-<!--
-> Windows 7, 8 or 10. Linux (which distribution).macOS(Yosemite ? El Capitan? Sierra ?)
--->
-
 ### Elasticsearch server Version?
 <!--
 > Version of target Elasticsearch server
+-->
+
+### OS Version?
+<!--
+> Windows 7, 8 or 10. Linux (which distribution).macOS(Yosemite ? El Capitan? Sierra ?)
 -->
 
 ### Repro steps

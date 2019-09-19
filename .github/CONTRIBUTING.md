@@ -7,10 +7,8 @@ As a contributor, here are the guidelines we would like you to follow:
 * [Code of Conduct](#coc)
 * [Issues and Bugs](#issue)
 * [Feature Requests](#feature)
-* [Coding Rules](#rules)
 * [Git Workflow (AKA Branching/Merging Strategy)](#commit)
 * [Commit Message Guidelines](#commit)
-* [Signing the CLA](#cla)
 
 ## <a name="coc"></a> Code of Conduct
 
@@ -67,7 +65,7 @@ to read on GitHub as well as in various git tools.
 
 The footer should contain a [closing reference to an issue](https://help.github.com/articles/closing-issues-via-commit-messages/) if any.
 
-Samples: (even more [samples](https://github.com/manekinekko/angular-search-experience/commits/master))
+Samples: (even more [samples](https://github.com/angular/angular/commits/master))
 
 ```
 docs(changelog): update changelog to beta.5
