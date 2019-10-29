@@ -11,10 +11,12 @@ The library reads all the metadata it needs from the entity classes (index name,
 ## Features
 
 * **Simple API** and no configuration required
-* Support  for  **JUnit 4** via `LoadEsDataRule`, `DeleteEsDataRule`
-* Support  for  **JUnit  Jupiter** via `@LoadEsDataConfig` / `@LoadEsDataExtension` or `@DeleteEsDataConfig` / `@DeleteEsDataExtension`
+* Support  for  **JUnit 4** via `@LoadEsDataRule`, `@DeleteEsDataRule`
+* Support  for  **JUnit  Jupiter** via 
+  * `@LoadEsDataConfig` / `@LoadEsDataExtension` 
+  * `@DeleteEsDataConfig` / `@DeleteEsDataExtension`
 * Built-in support for **gzipped data**
-* Multiple data formats(dump, manual)
+* **Multiple data formats**(dump, manual)
 * Written  in  **Java  8**
 * Based on **Spring (Data, Test)**
 
@@ -78,7 +80,7 @@ To get started,
 
 2. write your test class. You can have a look at:
 
-* [junit4](/junit4) - if your are using **JUnit 4**
+* [junit4](/junit4) - if you are using **JUnit 4**
 * [junit-jupiter](/junit-jupiter) - if you are using **JUnit Jupiter**
 
 ## Supported Data Formats
@@ -116,7 +118,7 @@ $ npx elasticdump --input=http://localhost:9200/my_index --output=my_index_data.
 
 In this format, you specify your target data directly (no metadata like `_index`, `_source`, ...), as an Array of JSON objects.
 
-This is more suitable when you create test data from scratch (as opposed to dumping existing ones from a ES server) because it is easier to tweak later on to accommodate future modifications in tests. _(Thanks to @DPorcheron for the idea 💡!)_
+This is more suitable when you create test data from scratch (as opposed to dumping existing ones from a ES server) because it is easier to tweak later on to accommodate future modifications in tests.
 
 Here is an example:
 ```json
